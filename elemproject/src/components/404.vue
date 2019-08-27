@@ -15,23 +15,23 @@
   </div>
 </template>
 <script>
-  export default {
-    computed: {
-      message () {
-        return '特朗普说这个页面你不能进......'
-      }
-    },
-    methods: {
-      goBack () {
-        this.$store.dispatch('delVisitedViews', {
-          name: '404',
-          path: '/404',
-          title: '404'
-        })
-        this.$router.push('/index')
-      }
+export default {
+  computed: {
+    message () {
+      return '特朗普说这个页面你不能进......'
+    }
+  },
+  methods: {
+    goBack () {
+      this.$store.dispatch('delVisitedViews', {
+        name: '404',
+        path: '/404',
+        title: '404'
+      })
+      this.$router.push('/index')
     }
   }
+}
 </script>
 <style lang="less" rel="stylesheet/less" scoped>
   .wscn-http404 {

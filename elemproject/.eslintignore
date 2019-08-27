@@ -1,0 +1,6 @@
+/upload/
+/config/
+/dist/
+/*.js
+src/assets/utils/*.js
+src/polyfill/index.js

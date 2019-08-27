@@ -1,0 +1,58 @@
+<template>
+  <div>
+    <el-col>
+      <el-col :span="12">
+        <el-row>
+          <el-col :span="6">
+            <div style="width:60px;margin:0 auto;cursor: pointer;" @click="toHome">
+              <img src="../assets/images/logo.png" style="width:100%;" />
+            </div>
+          </el-col>
+          <el-col :span="18">
+            <div style="line-height:18px;font-size:13px;">
+              <el-link class="link" :underline="false" href="/search" target="_blank">去团建</el-link>
+              <el-link class="link" :underline="false" href="/search2" target="_blank">萌马童游</el-link>
+              <el-link class="link" :underline="false" href="/search" target="_blank">找场地</el-link>
+              <el-link class="link" :underline="false" href="/search" target="_blank">案例</el-link>
+            </div>
+          </el-col>
+        </el-row>
+      </el-col>
+      <el-col :span="12">
+        <div style="text-align:right;line-height:18px;font-size:13px;">
+          <el-link class="link" :underline="false" href="#" target="_blank">登录/注册</el-link>
+          <el-link class="link" :underline="false" href="#" target="_blank">橙主入驻</el-link>
+        </div>
+      </el-col>
+    </el-col>
+  </div>
+</template>
+
+<script>
+export default {
+  components: {},
+  data () {
+    return {}
+  },
+  computed: {
+  },
+  created () { },
+  beforeDestroy () { },
+  mounted () {
+    this.$nextTick(() => {
+    })
+  },
+  methods: {
+    toHome () {
+      this.$router.push({ path: `/` })
+    }
+  }
+}
+</script>
+
+<style lang="less" scoped>
+  .link {
+    color: #fff;
+    margin-right: 15px;
+  }
+</style>
