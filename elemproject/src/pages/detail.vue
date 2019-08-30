@@ -5,13 +5,29 @@
         <headMenu></headMenu>
       </div>
       <div class="page-items">
-        <el-carousel :interval="4000" type="card" height="280px" indicator-position="none">
-          <el-carousel-item v-for="item in infoImgs" :key="item">
-            <div>
-              <img :src="item" style="width:100%;" />
-            </div>
-          </el-carousel-item>
-        </el-carousel>
+        <el-row>
+          <el-col :span="6">
+            <div
+              :style="{width:'100%',height:'150px',background:`url(`+infoImgs[1]+`) center center no-repeat`, backgroundSize: 'cover'}"
+            ></div>
+            <div
+              :style="{width:'100%',height:'150px',background:`url(`+infoImgs[2]+`) center center no-repeat`, backgroundSize: 'cover'}"
+            ></div>
+          </el-col>
+          <el-col :span="12">
+            <div
+              :style="{width:'100%',height:'300px',background:`url(`+infoImgs[0]+`) center center no-repeat`, backgroundSize: 'cover'}"
+            ></div>
+          </el-col>
+          <el-col :span="6">
+            <div
+              :style="{width:'100%',height:'150px',background:`url(`+infoImgs[3]+`) center center no-repeat`, backgroundSize: 'cover'}"
+            ></div>
+            <div
+              :style="{width:'100%',height:'150px',background:`url(`+infoImgs[4]+`) center center no-repeat`, backgroundSize: 'cover'}"
+            ></div>
+          </el-col>
+        </el-row>
       </div>
       <div class="page-items">
         <div style="margin-bottom:20px;">
@@ -80,19 +96,19 @@
       </div>
       <div class="page-items">
         <el-tabs v-model="activeName" @tab-click="handleClick">
-          <el-tab-pane label="位置" name="first">
-            <div v-html="info.r1"></div>
-          </el-tab-pane>
-          <el-tab-pane label="产品说明" name="second">
-            <div v-html="info.r2"></div>
-          </el-tab-pane>
-          <el-tab-pane label="费用说明" name="third">
-            <div v-html="info.r3"></div>
-          </el-tab-pane>
-          <el-tab-pane label="行程安排" name="fourth">
-            <div v-html="info.r4"></div>
-          </el-tab-pane>
+          <el-tab-pane label="位置" name="first"></el-tab-pane>
+          <el-tab-pane label="产品说明" name="second"></el-tab-pane>
+          <el-tab-pane label="费用说明" name="third"></el-tab-pane>
+          <el-tab-pane label="行程安排" name="fourth"></el-tab-pane>
         </el-tabs>
+        <h2 id="first" style="margin-bottom: 10px;">位置</h2>
+        <div v-html="info.r1" style="margin-bottom: 40px;"></div>
+        <h2 id="second" style="margin-bottom: 10px;">产品说明</h2>
+        <div v-html="info.r2" style="margin-bottom: 40px;"></div>
+        <h2 id="third" style="margin-bottom: 10px;">费用说明</h2>
+        <div v-html="info.r3" style="margin-bottom: 40px;"></div>
+        <h2 id="fourth" style="margin-bottom: 10px;">行程安排</h2>
+        <div v-html="info.r4" style="margin-bottom: 40px;"></div>
       </div>
       <div>
         <footMenu></footMenu>
@@ -232,7 +248,10 @@ export default {
       }
     },
     handleClick (tab, event) {
-
+      const returnEle = document.querySelector(`#${this.activeName}`)
+      if (returnEle) {
+        returnEle.scrollIntoView(true)
+      }
     }
   }
 }
