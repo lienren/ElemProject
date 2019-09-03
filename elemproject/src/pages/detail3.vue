@@ -48,7 +48,7 @@
             <span>¥{{parseInt(info.price/100)}}</span>
             <span style="font-size:12px;">/人起</span>
           </div>
-          <div style="font-size:12px;">（可接纳{{info.minPeopleNum}}-{{info.maxPeopleNum}}人）</div>
+          <div style="font-size:12px;">（可容纳人数{{info.peopleNum}}人）</div>
         </div>
       </div>
       <div class="page-items">
@@ -166,14 +166,14 @@ export default {
   },
   methods: {
     init () {
-      this.getPlayGroupDetail(this.id)
+      this.getPlaySiteDetail(this.id)
     },
-    async getPlayGroupDetail (groupid) {
-      if (!groupid || groupid === 0 || groupid === '0') {
+    async getPlaySiteDetail (siteid) {
+      if (!siteid || siteid === 0 || siteid === '0') {
         return
       }
-      const result = await api.getPlayGroupDetail({
-        id: groupid
+      const result = await api.getPlaySiteDetail({
+        id: siteid
       })
 
       if (result) {

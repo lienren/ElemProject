@@ -2,7 +2,7 @@
  * @Author: Lienren
  * @Date: 2019-08-10 14:11:58
  * @Last Modified by: Lienren
- * @Last Modified time: 2019-08-27 13:51:16
+ * @Last Modified time: 2019-09-03 11:17:32
  */
 import Vue from 'vue'
 
@@ -21,5 +21,11 @@ export default {
   },
   getPlayParentChildDetail (body, op = {}) {
     return Vue.$api.xHttp.post(`http://manage.youngplay.net/youngplay/getPlayParentChildDetail`, body, op)
+  },
+  getPlaySite (body, op = {}) {
+    return Vue.$api.xHttp.post(`http://manage.youngplay.net/youngplay/getPlaySite`, body, op)
+  },
+  getPlaySiteDetail (body, op = {}) {
+    return Vue.$api.xHttp.post(`http://manage.youngplay.net/youngplay/getPlaySiteDetail`, body, op)
   }
 }

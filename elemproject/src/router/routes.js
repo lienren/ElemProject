@@ -6,6 +6,8 @@ export default [
   { path: '/index', component: view('index') },
   { path: '/search', component: view('search1') },
   { path: '/search2', component: view('search2') },
+  { path: '/search3', component: view('search3') },
   { path: '/detail', component: view('detail') },
-  { path: '/detail2', component: view('detail2') }
+  { path: '/detail2', component: view('detail2') },
+  { path: '/detail3', component: view('detail3') }
 ]

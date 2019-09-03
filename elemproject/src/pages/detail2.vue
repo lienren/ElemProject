@@ -8,23 +8,23 @@
         <el-row>
           <el-col :span="6">
             <div
-              :style="{width:'100%',height:'150px',background:`url(`+infoImgs[1]+`) center center no-repeat`, backgroundSize: 'cover'}"
+              :style="{width:'100%',height:'225px',background:`url(`+infoImgs[1]+`) center center no-repeat`, backgroundSize: 'cover'}"
             ></div>
             <div
-              :style="{width:'100%',height:'150px',background:`url(`+infoImgs[2]+`) center center no-repeat`, backgroundSize: 'cover'}"
+              :style="{width:'100%',height:'225px',background:`url(`+infoImgs[2]+`) center center no-repeat`, backgroundSize: 'cover'}"
             ></div>
           </el-col>
           <el-col :span="12">
             <div
-              :style="{width:'100%',height:'300px',background:`url(`+infoImgs[0]+`) center center no-repeat`, backgroundSize: 'cover'}"
+              :style="{width:'100%',height:'450px',background:`url(`+infoImgs[0]+`) center center no-repeat`, backgroundSize: 'cover'}"
             ></div>
           </el-col>
           <el-col :span="6">
             <div
-              :style="{width:'100%',height:'150px',background:`url(`+infoImgs[3]+`) center center no-repeat`, backgroundSize: 'cover'}"
+              :style="{width:'100%',height:'225px',background:`url(`+infoImgs[3]+`) center center no-repeat`, backgroundSize: 'cover'}"
             ></div>
             <div
-              :style="{width:'100%',height:'150px',background:`url(`+infoImgs[4]+`) center center no-repeat`, backgroundSize: 'cover'}"
+              :style="{width:'100%',height:'225px',background:`url(`+infoImgs[4]+`) center center no-repeat`, backgroundSize: 'cover'}"
             ></div>
           </el-col>
         </el-row>

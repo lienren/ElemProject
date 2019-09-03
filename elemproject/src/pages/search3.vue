@@ -40,13 +40,13 @@
       <div class="page-items">
         <el-row :gutter="20" style="margin-bottom:20px;">
           <el-col
-            v-for="(item, index) in filterPCList"
+            v-for="(item, index) in filterSiteList"
             :key="index"
             :span="6"
             style="margin-bottom:15px;"
           >
             <el-card :body-style="{ padding: '0px' }">
-              <div @click="toPCDetail(item.id)">
+              <div @click="toSiteDetail(item.id)">
                 <img :src="item.masterImg" style="width:100%;" />
                 <div style="padding: 14px;">
                   <div class="title1" style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;">{{item.subTitle}}</div>
@@ -91,8 +91,8 @@ export default {
   },
   data () {
     return {
-      pcList: [],
-      filterPCList: [],
+      siteList: [],
+      filterSiteList: [],
       attrList: [],
       selectAttrList: []
     }
@@ -135,11 +135,11 @@ export default {
   },
   methods: {
     init () {
-      this.getPlayPC()
-      this.getAttr(4)
+      this.getPlaySite()
+      this.getAttr(3)
     },
-    toPCDetail (id) {
-      this.$router.push({ path: `/detail2?id=${id}` })
+    toSiteDetail (id) {
+      this.$router.push({ path: `/detail3?id=${id}` })
     },
     async getAttr (attrType) {
       const result = await api.getAttr({
@@ -161,16 +161,16 @@ export default {
         })
       }
     },
-    async getPlayPC () {
-      const result = await api.getPlayParentChild({
+    async getPlaySite () {
+      const result = await api.getPlaySite({
         current: 1,
         pageSize: 99999999,
         total: 0
       })
 
       if (result) {
-        this.pcList = result.data.list || []
-        this.filterPC()
+        this.siteList = result.data.list || []
+        this.filterSite()
       }
     },
     selectAttr (attr, attrValue) {
@@ -189,23 +189,23 @@ export default {
         })
       }
 
-      this.filterPC()
+      this.filterSite()
     },
-    filterPC () {
+    filterSite () {
       if (this.selectAttrList.length === 0) {
-        this.filterPCList = JSON.parse(JSON.stringify(this.pcList))
+        this.filterSiteList = JSON.parse(JSON.stringify(this.siteList))
         return
       }
 
-      this.filterPCList = []
-      for (let i = 0, j = this.pcList.length; i < j; i++) {
+      this.filterSiteList = []
+      for (let i = 0, j = this.siteList.length; i < j; i++) {
         this.selectAttrList.forEach(f => {
-          const find = JSON.parse(this.pcList[i].attrs).find(f1 => {
+          const find = JSON.parse(this.siteList[i].attrs).find(f1 => {
             return f1.key === f.attr && f1.val === f.attrValue
           })
 
           if (find) {
-            this.filterPCList.push(this.pcList[i])
+            this.filterSiteList.push(this.siteList[i])
           }
         })
       }

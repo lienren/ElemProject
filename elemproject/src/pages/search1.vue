@@ -49,8 +49,8 @@
               <div @click="toGroupDetail(item.id)">
                 <img :src="item.masterImg" style="width:100%;" />
                 <div style="padding: 14px;">
-                  <div class="title1">{{item.subTitle}}</div>
-                  <div class="title2">{{item.title}}</div>
+                  <div class="title1" style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;">{{item.subTitle}}</div>
+                  <div class="title2" style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;">{{item.title}}</div>
                   <div class="title3">
                     <el-row>
                       <el-col

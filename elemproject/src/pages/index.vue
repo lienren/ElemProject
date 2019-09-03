@@ -80,8 +80,8 @@
               <div @click="toGroupDetail(item.id)">
                 <img :src="item.masterImg" style="width:100%;height:auto;" />
                 <div style="padding: 14px;">
-                  <div class="title1">{{item.title}}</div>
-                  <div class="title2">{{item.subTitle}}</div>
+                  <div class="title1" style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;">{{item.title}}</div>
+                  <div class="title2" style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;">{{item.subTitle}}</div>
                   <div class="title3">{{item.price/100}}元/人起</div>
                 </div>
               </div>
@@ -92,57 +92,18 @@
       <div class="page-items">
         <div class="title">找场地</div>
         <div class="sorts">
-          <span>旅行团建</span>
-          <span>培训团建</span>
-          <span>主题团建</span>
-          <span>定制团建</span>
-          <span class="more">更多</span>
+          <span v-for="(item, index) in siteAttrListZero" :key="index" @click="toSearch3">{{item}}</span>
+          <span class="more" @click="toSearch3">更多</span>
         </div>
         <el-row :gutter="20">
-          <el-col :span="6">
+          <el-col v-for="(item, index) in siteList" :key="index" :span="6">
             <el-card :body-style="{ padding: '0px' }">
-              <div @click="toDetail(1)">
-                <img src="../assets/images/banner2.jpg" class="image" />
+              <div @click="toSiteDetail(item.id)">
+                <img :src="item.masterImg" style="width:100%;height:auto;" />
                 <div style="padding: 14px;">
-                  <div class="title1">【怒放的生命】</div>
-                  <div class="title2">来自乡野的呼唤1天一夜</div>
-                  <div class="title3">698元/人起</div>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="6">
-            <el-card :body-style="{ padding: '0px' }">
-              <div @click="toDetail(1)">
-                <img src="../assets/images/banner2.jpg" class="image" />
-                <div style="padding: 14px;">
-                  <div class="title1">【怒放的生命】</div>
-                  <div class="title2">来自乡野的呼唤1天一夜</div>
-                  <div class="title3">698元/人起</div>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="6">
-            <el-card :body-style="{ padding: '0px' }">
-              <div @click="toDetail(1)">
-                <img src="../assets/images/banner2.jpg" class="image" />
-                <div style="padding: 14px;">
-                  <div class="title1">【怒放的生命】</div>
-                  <div class="title2">来自乡野的呼唤1天一夜</div>
-                  <div class="title3">698元/人起</div>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="6">
-            <el-card :body-style="{ padding: '0px' }">
-              <div @click="toDetail(1)">
-                <img src="../assets/images/banner2.jpg" class="image" />
-                <div style="padding: 14px;">
-                  <div class="title1">【怒放的生命】</div>
-                  <div class="title2">来自乡野的呼唤1天一夜</div>
-                  <div class="title3">698元/人起</div>
+                  <div class="title1" style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;">{{item.subTitle}}</div>
+                  <div class="title2" style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;">{{item.title}}</div>
+                  <div class="title3">{{item.price/100}}元/人起</div>
                 </div>
               </div>
             </el-card>
@@ -157,9 +118,10 @@
         </div>
         <el-row :gutter="20">
           <el-col v-for="(item, index) in pcList" :key="index" :span="12">
-            <div style="margin-bottom:20px;" @click="toPCDetail(item.id)">
-              <img :src="item.masterImg" style="width:100%;" />
-            </div>
+            <div
+              :style="{marginBottom:'20px',width:'100%',height:'180px',background:`url(`+item.masterImg+`) center center no-repeat`, backgroundSize: 'cover'}"
+              @click="toPCDetail(item.id)"
+            ></div>
           </el-col>
         </el-row>
       </div>
@@ -432,13 +394,17 @@ export default {
   },
   data () {
     return {
+      fit: 'fill',
       num: 1,
       groupList: [],
       groupAttrList: [],
       groupAttrListZero: [],
       pcList: [],
       pcAttrList: [],
-      pcAttrListZero: []
+      pcAttrListZero: [],
+      siteList: [],
+      siteAttrList: [],
+      siteAttrListZero: []
     }
   },
   computed: {
@@ -457,6 +423,7 @@ export default {
     init () {
       this.getPlayGroup()
       this.getPlayPC()
+      this.getPlaySite()
     },
     toDetail (id) {
       this.$router.push({ path: `/detail?id=${id}` })
@@ -467,11 +434,17 @@ export default {
     toSearch2 () {
       this.$router.push({ path: `/search2` })
     },
+    toSearch3 () {
+      this.$router.push({ path: `/search3` })
+    },
     toGroupDetail (id) {
       this.$router.push({ path: `/detail?id=${id}` })
     },
     toPCDetail (id) {
       this.$router.push({ path: `/detail2?id=${id}` })
+    },
+    toSiteDetail (id) {
+      this.$router.push({ path: `/detail3?id=${id}` })
     },
     async getAttr (attrType) {
       const result = await api.getAttr({
@@ -544,6 +517,37 @@ export default {
 
       if (result) {
         this.pcList = result.data.list || []
+      }
+    },
+    async getPlaySite () {
+      const attrs = await this.getAttr(3)
+
+      attrs.forEach(item => {
+        this.siteAttrList.push({
+          id: item.id,
+          attrName: item.attrName,
+          isCheck: item.isCheck,
+          options: item.attrValues ? item.attrValues.map(m => {
+            return m.attrValue
+          }) : [],
+          selectItems: item.isCheck === 1 ? [] : '',
+          defaultItems: item.isCheck === 1 ? [] : ''
+        })
+      })
+
+      if (this.siteAttrList.length > 0) {
+        this.siteAttrListZero = []
+        this.siteAttrListZero = this.siteAttrListZero.concat(this.siteAttrList[4].options)
+      }
+
+      const result = await api.getPlaySite({
+        current: 1,
+        pageSize: 4,
+        total: 0
+      })
+
+      if (result) {
+        this.siteList = result.data.list || []
       }
     }
   }

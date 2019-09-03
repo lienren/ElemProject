@@ -11,7 +11,7 @@
               <div>&nbsp;</div>
             </el-col>
             <el-col :span="4">
-              <div class="bottom-home-menu">首页</div>
+              <div class="bottom-home-menu" @click="toHome">首页</div>
             </el-col>
             <el-col :span="4">
               <div class="bottom-first-menu bottom-menu" @click="toSearch">团建</div>
@@ -21,18 +21,18 @@
               <div class="bottom-menu" @click="toSearch">定制团建</div>
             </el-col>
             <el-col :span="4">
-              <div class="bottom-first-menu bottom-menu">场地</div>
-              <div class="bottom-menu" @click="toSearch">旅行团建</div>
-              <div class="bottom-menu" @click="toSearch">培训团建</div>
-              <div class="bottom-menu" @click="toSearch">主题团建</div>
-              <div class="bottom-menu" @click="toSearch">定制团建</div>
+              <div class="bottom-first-menu bottom-menu" @click="toSearch3">场地</div>
+              <div class="bottom-menu" @click="toSearch3">旅行团建</div>
+              <div class="bottom-menu" @click="toSearch3">培训团建</div>
+              <div class="bottom-menu" @click="toSearch3">主题团建</div>
+              <div class="bottom-menu" @click="toSearch3">定制团建</div>
             </el-col>
             <el-col :span="4">
-              <div class="bottom-first-menu bottom-menu">萌马童游</div>
-              <div class="bottom-menu" @click="toSearch">旅行团建</div>
-              <div class="bottom-menu" @click="toSearch">培训团建</div>
-              <div class="bottom-menu" @click="toSearch">主题团建</div>
-              <div class="bottom-menu" @click="toSearch">定制团建</div>
+              <div class="bottom-first-menu bottom-menu" @click="toSearch2">萌马童游</div>
+              <div class="bottom-menu" @click="toSearch2">旅行团建</div>
+              <div class="bottom-menu" @click="toSearch2">培训团建</div>
+              <div class="bottom-menu" @click="toSearch2">主题团建</div>
+              <div class="bottom-menu" @click="toSearch2">定制团建</div>
             </el-col>
             <el-col :span="4">
               <div class="bottom-first-menu bottom-menu" @click="toSearch">关于我们</div>
@@ -83,6 +83,12 @@ export default {
     },
     toSearch () {
       this.$router.push({ path: `/search` })
+    },
+    toSearch2 () {
+      this.$router.push({ path: `/search2` })
+    },
+    toSearch3 () {
+      this.$router.push({ path: `/search3` })
     }
   }
 }
@@ -101,6 +107,7 @@ export default {
       font-size: 18px;
       line-height: 45px;
       color: #f57021;
+      cursor: pointer;
     }
 
     .bottom-menu {

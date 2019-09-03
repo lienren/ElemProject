@@ -12,7 +12,7 @@
             <div style="line-height:18px;font-size:13px;">
               <el-link class="link" :underline="false" href="/search" target="_blank">去团建</el-link>
               <el-link class="link" :underline="false" href="/search2" target="_blank">萌马童游</el-link>
-              <el-link class="link" :underline="false" href="/search" target="_blank">找场地</el-link>
+              <el-link class="link" :underline="false" href="/search3" target="_blank">找场地</el-link>
               <el-link class="link" :underline="false" href="/search" target="_blank">案例</el-link>
             </div>
           </el-col>
