@@ -21,13 +21,6 @@
               <div class="bottom-menu" @click="toSearch">定制团建</div>
             </el-col>
             <el-col :span="4">
-              <div class="bottom-first-menu bottom-menu" @click="toSearch3">场地</div>
-              <div class="bottom-menu" @click="toSearch3">旅行团建</div>
-              <div class="bottom-menu" @click="toSearch3">培训团建</div>
-              <div class="bottom-menu" @click="toSearch3">主题团建</div>
-              <div class="bottom-menu" @click="toSearch3">定制团建</div>
-            </el-col>
-            <el-col :span="4">
               <div class="bottom-first-menu bottom-menu" @click="toSearch2">萌马童游</div>
               <div class="bottom-menu" @click="toSearch2">旅行团建</div>
               <div class="bottom-menu" @click="toSearch2">培训团建</div>
@@ -35,7 +28,14 @@
               <div class="bottom-menu" @click="toSearch2">定制团建</div>
             </el-col>
             <el-col :span="4">
-              <div class="bottom-first-menu bottom-menu" @click="toSearch">关于我们</div>
+              <div class="bottom-first-menu bottom-menu" @click="toSearch3">场地</div>
+              <div class="bottom-menu" @click="toSearch3">旅行团建</div>
+              <div class="bottom-menu" @click="toSearch3">培训团建</div>
+              <div class="bottom-menu" @click="toSearch3">主题团建</div>
+              <div class="bottom-menu" @click="toSearch3">定制团建</div>
+            </el-col>
+            <el-col :span="4">
+              <div class="bottom-first-menu bottom-menu" @click="toSearch3">关于我们</div>
               <div class="bottom-menu" @click="toSearch">旅行团建</div>
               <div class="bottom-menu" @click="toSearch">培训团建</div>
               <div class="bottom-menu" @click="toSearch">主题团建</div>

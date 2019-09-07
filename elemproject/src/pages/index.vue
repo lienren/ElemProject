@@ -80,8 +80,14 @@
               <div @click="toGroupDetail(item.id)">
                 <img :src="item.masterImg" style="width:100%;height:auto;" />
                 <div style="padding: 14px;">
-                  <div class="title1" style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;">{{item.title}}</div>
-                  <div class="title2" style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;">{{item.subTitle}}</div>
+                  <div
+                    class="title2"
+                    style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;"
+                  >{{item.subTitle}}</div>
+                  <div
+                    class="title1"
+                    style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;"
+                  >{{item.title}}</div>
                   <div class="title3">{{item.price/100}}元/人起</div>
                 </div>
               </div>
@@ -101,8 +107,14 @@
               <div @click="toSiteDetail(item.id)">
                 <img :src="item.masterImg" style="width:100%;height:auto;" />
                 <div style="padding: 14px;">
-                  <div class="title1" style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;">{{item.subTitle}}</div>
-                  <div class="title2" style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;">{{item.title}}</div>
+                  <div
+                    class="title2"
+                    style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;"
+                  >{{item.subTitle}}</div>
+                  <div
+                    class="title1"
+                    style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;"
+                  >{{item.title}}</div>
                   <div class="title3">{{item.price/100}}元/人起</div>
                 </div>
               </div>
@@ -128,64 +140,34 @@
       <div class="page-items">
         <div class="title">活动服务</div>
         <div class="sorts">
-          <span>旅行团建</span>
-          <span>培训团建</span>
-          <span>主题团建</span>
-          <span>定制团建</span>
-          <span class="more">更多</span>
+          <span
+            v-for="(item, index) in activityAttrListZero"
+            :key="index"
+            @click="toSearch5"
+          >{{item}}</span>
+          <span class="more" @click="toSearch5">更多</span>
         </div>
         <el-row :gutter="20">
-          <el-col :span="6">
-            <div style="margin-bottom:20px;" @click="toDetail(1)">
-              <img src="../assets/images/banner4.jpg" style="width:100%;" />
-            </div>
-          </el-col>
-          <el-col :span="6">
-            <div style="margin-bottom:20px;" @click="toDetail(1)">
-              <img src="../assets/images/banner4.jpg" style="width:100%;" />
-            </div>
-          </el-col>
-          <el-col :span="6">
-            <div style="margin-bottom:20px;" @click="toDetail(1)">
-              <img src="../assets/images/banner4.jpg" style="width:100%;" />
-            </div>
-          </el-col>
-          <el-col :span="6">
-            <div style="margin-bottom:20px;" @click="toDetail(1)">
-              <img src="../assets/images/banner4.jpg" style="width:100%;" />
-            </div>
+          <el-col v-for="(item, index) in activityList" :key="index" :span="6">
+            <div
+              :style="{marginBottom:'20px',width:'100%',height:'300px',background:`url(`+item.masterImg+`) center center no-repeat`, backgroundSize: 'cover'}"
+              @click="toActivityDetail(item.id)"
+            ></div>
           </el-col>
         </el-row>
       </div>
       <div class="page-items">
         <div class="title">案例</div>
         <div class="sorts">
-          <span>旅行团建</span>
-          <span>培训团建</span>
-          <span>主题团建</span>
-          <span>定制团建</span>
-          <span class="more">更多</span>
+          <span v-for="(item, index) in caseAttrListZero" :key="index" @click="toSearch4">{{item}}</span>
+          <span class="more" @click="toSearch4">更多</span>
         </div>
         <el-row :gutter="20">
-          <el-col :span="6">
-            <div style="margin-bottom:20px;" @click="toDetail(1)">
-              <img src="../assets/images/banner5.jpg" style="width:100%;" />
-            </div>
-          </el-col>
-          <el-col :span="6">
-            <div style="margin-bottom:20px;" @click="toDetail(1)">
-              <img src="../assets/images/banner5.jpg" style="width:100%;" />
-            </div>
-          </el-col>
-          <el-col :span="6">
-            <div style="margin-bottom:20px;" @click="toDetail(1)">
-              <img src="../assets/images/banner5.jpg" style="width:100%;" />
-            </div>
-          </el-col>
-          <el-col :span="6">
-            <div style="margin-bottom:20px;" @click="toDetail(1)">
-              <img src="../assets/images/banner5.jpg" style="width:100%;" />
-            </div>
+          <el-col v-for="(item, index) in caseList" :key="index" :span="6">
+            <div
+              :style="{marginBottom:'20px',width:'100%',height:'190px',background:`url(`+item.masterImg+`) center center no-repeat`, backgroundSize: 'cover'}"
+              @click="toCaseDetail(item.id)"
+            ></div>
           </el-col>
         </el-row>
       </div>
@@ -404,7 +386,13 @@ export default {
       pcAttrListZero: [],
       siteList: [],
       siteAttrList: [],
-      siteAttrListZero: []
+      siteAttrListZero: [],
+      caseList: [],
+      caseAttrList: [],
+      caseAttrListZero: [],
+      activityList: [],
+      activityAttrList: [],
+      activityAttrListZero: []
     }
   },
   computed: {
@@ -424,6 +412,8 @@ export default {
       this.getPlayGroup()
       this.getPlayPC()
       this.getPlaySite()
+      this.getPlayCase()
+      this.getPlayActivity()
     },
     toDetail (id) {
       this.$router.push({ path: `/detail?id=${id}` })
@@ -437,6 +427,12 @@ export default {
     toSearch3 () {
       this.$router.push({ path: `/search3` })
     },
+    toSearch4 () {
+      this.$router.push({ path: `/search4` })
+    },
+    toSearch5 () {
+      this.$router.push({ path: `/search5` })
+    },
     toGroupDetail (id) {
       this.$router.push({ path: `/detail?id=${id}` })
     },
@@ -445,6 +441,12 @@ export default {
     },
     toSiteDetail (id) {
       this.$router.push({ path: `/detail3?id=${id}` })
+    },
+    toCaseDetail (id) {
+      this.$router.push({ path: `/detail4?id=${id}` })
+    },
+    toActivityDetail (id) {
+      this.$router.push({ path: `/detail5?id=${id}` })
     },
     async getAttr (attrType) {
       const result = await api.getAttr({
@@ -549,6 +551,68 @@ export default {
       if (result) {
         this.siteList = result.data.list || []
       }
+    },
+    async getPlayCase () {
+      const attrs = await this.getAttr(5)
+
+      attrs.forEach(item => {
+        this.caseAttrList.push({
+          id: item.id,
+          attrName: item.attrName,
+          isCheck: item.isCheck,
+          options: item.attrValues ? item.attrValues.map(m => {
+            return m.attrValue
+          }) : [],
+          selectItems: item.isCheck === 1 ? [] : '',
+          defaultItems: item.isCheck === 1 ? [] : ''
+        })
+      })
+
+      if (this.caseAttrList.length > 0) {
+        this.caseAttrListZero = []
+        this.caseAttrListZero = this.caseAttrListZero.concat(this.caseAttrList[0].options)
+      }
+
+      const result = await api.getPlayCase({
+        current: 1,
+        pageSize: 4,
+        total: 0
+      })
+
+      if (result) {
+        this.caseList = result.data.list || []
+      }
+    },
+    async getPlayActivity () {
+      const attrs = await this.getAttr(2)
+
+      attrs.forEach(item => {
+        this.activityAttrList.push({
+          id: item.id,
+          attrName: item.attrName,
+          isCheck: item.isCheck,
+          options: item.attrValues ? item.attrValues.map(m => {
+            return m.attrValue
+          }) : [],
+          selectItems: item.isCheck === 1 ? [] : '',
+          defaultItems: item.isCheck === 1 ? [] : ''
+        })
+      })
+
+      if (this.activityAttrList.length > 0) {
+        this.activityAttrListZero = []
+        this.activityAttrListZero = this.activityAttrListZero.concat(this.activityAttrList[0].options)
+      }
+
+      const result = await api.getPlayActivity({
+        current: 1,
+        pageSize: 4,
+        total: 0
+      })
+
+      if (result) {
+        this.activityList = result.data.list || []
+      }
     }
   }
 }
@@ -613,16 +677,17 @@ export default {
     }
 
     .title1 {
-      font-size: 18px;
-      text-align: center;
-      width: 100%;
-    }
-
-    .title2 {
       font-size: 14px;
       text-align: center;
       width: 100%;
+      font-weight: bold;
       margin-bottom: 10px;
+    }
+
+    .title2 {
+      font-size: 12px;
+      text-align: center;
+      width: 100%;
     }
 
     .title3 {

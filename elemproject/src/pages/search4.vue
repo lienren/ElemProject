@@ -46,13 +46,13 @@
       <div class="page-items" @click="attrSelectShow=false">
         <el-row :gutter="20" style="margin-bottom:20px;">
           <el-col
-            v-for="(item, index) in filterPCList"
+            v-for="(item, index) in filterCaseList"
             :key="index"
             :span="6"
             style="margin-bottom:15px;"
           >
             <el-card :body-style="{ padding: '0px' }">
-              <div @click="toPCDetail(item.id)">
+              <div @click="toCaseDetail(item.id)">
                 <img :src="item.masterImg" style="width:100%;" />
                 <div style="padding: 14px;">
                   <div class="title1" style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;">{{item.subTitle}}</div>
@@ -97,8 +97,8 @@ export default {
   },
   data () {
     return {
-      pcList: [],
-      filterPCList: [],
+      caseList: [],
+      filterCaseList: [],
       attrList: [],
       attrSelectShow: false,
       attrSelectLeft: -5,
@@ -145,11 +145,11 @@ export default {
   },
   methods: {
     init () {
-      this.getPlayPC()
-      this.getAttr(4)
+      this.getPlayCase()
+      this.getAttr(3)
     },
-    toPCDetail (id) {
-      this.$router.push({ path: `/detail2?id=${id}` })
+    toCaseDetail (id) {
+      this.$router.push({ path: `/detail4?id=${id}` })
     },
     async getAttr (attrType) {
       const result = await api.getAttr({
@@ -171,16 +171,16 @@ export default {
         })
       }
     },
-    async getPlayPC () {
-      const result = await api.getPlayParentChild({
+    async getPlayCase () {
+      const result = await api.getPlayCase({
         current: 1,
         pageSize: 99999999,
         total: 0
       })
 
       if (result) {
-        this.pcList = result.data.list || []
-        this.filterPC()
+        this.caseList = result.data.list || []
+        this.filterCase()
       }
     },
     selectAttrIndex (item, index) {
@@ -205,23 +205,23 @@ export default {
         })
       }
 
-      this.filterPC()
+      this.filterCase()
     },
-    filterPC () {
+    filterCase () {
       if (this.selectAttrList.length === 0) {
-        this.filterPCList = JSON.parse(JSON.stringify(this.pcList))
+        this.filterCaseList = JSON.parse(JSON.stringify(this.caseList))
         return
       }
 
-      this.filterPCList = []
-      for (let i = 0, j = this.pcList.length; i < j; i++) {
+      this.filterCaseList = []
+      for (let i = 0, j = this.caseList.length; i < j; i++) {
         this.selectAttrList.forEach(f => {
-          const find = JSON.parse(this.pcList[i].attrs).find(f1 => {
+          const find = JSON.parse(this.caseList[i].attrs).find(f1 => {
             return f1.key === f.attr && f1.val === f.attrValue
           })
 
           if (find) {
-            this.filterPCList.push(this.pcList[i])
+            this.filterCaseList.push(this.caseList[i])
           }
         })
       }

@@ -46,13 +46,13 @@
       <div class="page-items" @click="attrSelectShow=false">
         <el-row :gutter="20" style="margin-bottom:20px;">
           <el-col
-            v-for="(item, index) in filterPCList"
+            v-for="(item, index) in filterActivityList"
             :key="index"
             :span="6"
             style="margin-bottom:15px;"
           >
             <el-card :body-style="{ padding: '0px' }">
-              <div @click="toPCDetail(item.id)">
+              <div @click="toActivityDetail(item.id)">
                 <img :src="item.masterImg" style="width:100%;" />
                 <div style="padding: 14px;">
                   <div class="title1" style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;">{{item.subTitle}}</div>
@@ -97,8 +97,8 @@ export default {
   },
   data () {
     return {
-      pcList: [],
-      filterPCList: [],
+      activityList: [],
+      filterActivityList: [],
       attrList: [],
       attrSelectShow: false,
       attrSelectLeft: -5,
@@ -145,11 +145,11 @@ export default {
   },
   methods: {
     init () {
-      this.getPlayPC()
-      this.getAttr(4)
+      this.getPlayActivity()
+      this.getAttr(2)
     },
-    toPCDetail (id) {
-      this.$router.push({ path: `/detail2?id=${id}` })
+    toActivityDetail (id) {
+      this.$router.push({ path: `/detail5?id=${id}` })
     },
     async getAttr (attrType) {
       const result = await api.getAttr({
@@ -171,16 +171,16 @@ export default {
         })
       }
     },
-    async getPlayPC () {
-      const result = await api.getPlayParentChild({
+    async getPlayActivity () {
+      const result = await api.getPlayActivity({
         current: 1,
         pageSize: 99999999,
         total: 0
       })
 
       if (result) {
-        this.pcList = result.data.list || []
-        this.filterPC()
+        this.activityList = result.data.list || []
+        this.filterActivity()
       }
     },
     selectAttrIndex (item, index) {
@@ -205,23 +205,23 @@ export default {
         })
       }
 
-      this.filterPC()
+      this.filterActivity()
     },
-    filterPC () {
+    filterActivity () {
       if (this.selectAttrList.length === 0) {
-        this.filterPCList = JSON.parse(JSON.stringify(this.pcList))
+        this.filterActivityList = JSON.parse(JSON.stringify(this.activityList))
         return
       }
 
-      this.filterPCList = []
-      for (let i = 0, j = this.pcList.length; i < j; i++) {
+      this.filterActivityList = []
+      for (let i = 0, j = this.activityList.length; i < j; i++) {
         this.selectAttrList.forEach(f => {
-          const find = JSON.parse(this.pcList[i].attrs).find(f1 => {
+          const find = JSON.parse(this.activityList[i].attrs).find(f1 => {
             return f1.key === f.attr && f1.val === f.attrValue
           })
 
           if (find) {
-            this.filterPCList.push(this.pcList[i])
+            this.filterActivityList.push(this.activityList[i])
           }
         })
       }

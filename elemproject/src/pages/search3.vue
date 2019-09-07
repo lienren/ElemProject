@@ -1,43 +1,49 @@
 <template>
   <div class="main-page">
     <div class="page">
-      <div class="page-items" style="padding-top:15px;height:20px;">
+      <div class="page-items" style="padding-top:15px;height:20px;" @click="attrSelectShow=false">
         <headMenu></headMenu>
       </div>
-      <div class="page-items">
+      <div class="page-items" style="margin-bottom: 20px;">
         <div style="font-size:12px;margin-bottom:10px;color:#666;">可筛选条件</div>
         <div>
-          <el-popover
-            v-for="(item, index) in attrList"
-            :key="index"
-            placement="bottom-start"
-            width="900"
-            trigger="click"
-          >
-            <div>
-              <el-row :gutter="10">
-                <el-col
-                  v-for="(option, optionIndex) in item.options"
-                  :key="optionIndex"
-                  :span="2"
-                  style="margin-bottom: 10px;"
-                >
-                  <div
-                    :class="['key-word', checkAttrValue(item.attrName, option)?'active':'']"
-                    @click="selectAttr(item.attrName, option)"
-                  >{{option}}</div>
-                </el-col>
-              </el-row>
-            </div>
+          <el-row :gutter="10">
             <div
-              slot="reference"
+              v-for="(item, index) in attrList"
+              :key="index"
               :class="['search-condition', checkAttr(item.attrName)?'active':'']"
+              @click="selectAttrIndex(item, index)"
             >{{item.attrName}}</div>
-          </el-popover>
-          <div class="clearfix"></div>
+          </el-row>
+        </div>
+        <div
+          :class="['search-condition-list',attrSelectShow?'':'none']"
+          :style="{'left':attrSelectLeft+'px'}"
+        >
+          <el-row :gutter="10">
+            <el-col
+              v-for="(option, index) in attrOptionList"
+              :key="index"
+              :span="6"
+              style="margin-bottom: 10px;"
+            >
+              <div
+                :class="['key-word', checkAttrValue(attrSelectName, option)?'active':'']"
+                @click="selectAttr(attrSelectName, option)"
+              >{{option}}</div>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-button
+              style="float:right;"
+              type="text"
+              icon="el-icon-close"
+              @click="attrSelectShow=false"
+            ></el-button>
+          </el-row>
         </div>
       </div>
-      <div class="page-items">
+      <div class="page-items" @click="attrSelectShow=false">
         <el-row :gutter="20" style="margin-bottom:20px;">
           <el-col
             v-for="(item, index) in filterSiteList"
@@ -72,7 +78,7 @@
           <!--<el-pagination layout="prev, pager, next" :total="1000"></el-pagination>-->
         </div>
       </div>
-      <div>
+      <div @click="attrSelectShow=false">
         <footMenu></footMenu>
       </div>
     </div>
@@ -94,6 +100,10 @@ export default {
       siteList: [],
       filterSiteList: [],
       attrList: [],
+      attrSelectShow: false,
+      attrSelectLeft: -5,
+      attrSelectName: '',
+      attrOptionList: [],
       selectAttrList: []
     }
   },
@@ -173,6 +183,12 @@ export default {
         this.filterSite()
       }
     },
+    selectAttrIndex (item, index) {
+      this.attrSelectShow = true
+      this.attrSelectName = item.attrName
+      this.attrOptionList = item.options
+      this.attrSelectLeft = index * 95 - 5
+    },
     selectAttr (attr, attrValue) {
       let exist = false
       for (let i = 0, j = this.selectAttrList.length; i < j; i++) {
@@ -228,6 +244,7 @@ export default {
   }
 
   .page-items {
+    position: relative;
     margin-bottom: 40px;
     .title {
       font-size: 28px;
@@ -244,11 +261,12 @@ export default {
       width: 80px;
       height: 25px;
       line-height: 25px;
-      font-size: 13px;
+      font-size: 14px;
       text-align: center;
       float: left;
       margin-right: 15px;
       cursor: pointer;
+      margin-bottom: 10px;
 
       &:hover {
         border: solid 1px #f57021;
@@ -260,6 +278,22 @@ export default {
         border: solid 1px #f57021;
         background: #f57021;
         color: #fff;
+      }
+    }
+
+    .search-condition-list {
+      position: absolute;
+      left: -5px;
+      top: 60px;
+      z-index: 99999;
+      border: solid 1px #ccc;
+      padding: 15px 20px 0;
+      width: 500px;
+      background: #fff;
+      font-size: 14px;
+
+      &.none {
+        display: none;
       }
     }
 
