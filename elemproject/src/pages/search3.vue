@@ -232,14 +232,14 @@ export default {
 
 <style lang="less" scoped>
   .main-page {
-    width: 1280px;
+    max-width: 1920px;
     margin: 0 auto;
     background: url("../assets/images/header_bg.jpg") repeat-x;
     background-size: 293px 50px;
   }
 
   .page {
-    width: 1024px;
+    width: 1152px;
     margin: 0 auto;
   }
 

@@ -5,17 +5,6 @@
         <headMenu></headMenu>
       </div>
       <div class="page-items" style="margin-bottom: 20px;">
-        <div style="font-size:12px;margin-bottom:10px;color:#666;">可筛选条件</div>
-        <div>
-          <el-row :gutter="10">
-            <div
-              v-for="(item, index) in attrList"
-              :key="index"
-              :class="['search-condition', checkAttr(item.attrName)?'active':'']"
-              @click="selectAttrIndex(item, index)"
-            >{{item.attrName}}</div>
-          </el-row>
-        </div>
         <div
           :class="['search-condition-list',attrSelectShow?'':'none']"
           :style="{'left':attrSelectLeft+'px'}"
@@ -55,20 +44,14 @@
               <div @click="toActivityDetail(item.id)">
                 <img :src="item.masterImg" style="width:100%;" />
                 <div style="padding: 14px;">
-                  <div class="title1" style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;">{{item.subTitle}}</div>
-                  <div class="title2" style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;">{{item.title}}</div>
-                  <div class="title3">
-                    <el-row>
-                      <el-col
-                        :span="14"
-                        style="padding-top:3px;"
-                      >{{item.strokeDay}}天/适合{{item.minPeopleNum}}~{{item.maxPeopleNum}}人</el-col>
-                      <el-col
-                        :span="10"
-                        style="font-size:16px;color:#f57021;text-align:right;"
-                      >¥{{parseInt(item.price/100)}}/人起</el-col>
-                    </el-row>
-                  </div>
+                  <div
+                    class="title1"
+                    style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;"
+                  >{{item.subTitle}}</div>
+                  <div
+                    class="title2"
+                    style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;"
+                  >{{item.title}}</div>
                 </div>
               </div>
             </el-card>
@@ -232,14 +215,14 @@ export default {
 
 <style lang="less" scoped>
   .main-page {
-    width: 1280px;
+    max-width: 1920px;
     margin: 0 auto;
     background: url("../assets/images/header_bg.jpg") repeat-x;
     background-size: 293px 50px;
   }
 
   .page {
-    width: 1024px;
+    width: 1152px;
     margin: 0 auto;
   }
 

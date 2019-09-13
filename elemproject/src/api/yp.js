@@ -2,7 +2,7 @@
  * @Author: Lienren
  * @Date: 2019-08-10 14:11:58
  * @Last Modified by: Lienren
- * @Last Modified time: 2019-09-07 22:39:11
+ * @Last Modified time: 2019-09-13 00:02:39
  */
 import Vue from 'vue'
 
@@ -39,5 +39,14 @@ export default {
   },
   getPlayActivityDetail (body, op = {}) {
     return Vue.$api.xHttp.post(`http://manage.youngplay.net/youngplay/getPlayActivityDetail`, body, op)
+  },
+  getIndexBannerLink (body, op = {}) {
+    return Vue.$api.xHttp.post(`http://manage.youngplay.net/youngplay/getIndexBannerLink`, body, op)
+  },
+  getIndexBigBannerLink (body, op = {}) {
+    return Vue.$api.xHttp.post(`http://manage.youngplay.net/youngplay/getIndexBigBannerLink`, body, op)
+  },
+  getBusinessUser (body, op = {}) {
+    return Vue.$api.xHttp.post(`http://manage.youngplay.net/youngplay/getBusinessUser`, body, op)
   }
 }

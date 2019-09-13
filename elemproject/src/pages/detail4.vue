@@ -1,115 +1,148 @@
 <template>
   <div v-if="isLoader" class="main-page">
+    <div class="page-items" style="padding-top:10px;height:20px;width:1152px;margin:0 auto 30px;">
+      <headMenu></headMenu>
+    </div>
+    <div class="page-items">
+      <el-row>
+        <el-col :span="6">
+          <div
+            :style="{width:'100%',height:'225px',background:`url(`+infoImgs[1]+`) center center no-repeat`, backgroundSize: 'cover'}"
+          ></div>
+          <div
+            :style="{width:'100%',height:'225px',background:`url(`+infoImgs[2]+`) center center no-repeat`, backgroundSize: 'cover'}"
+          ></div>
+        </el-col>
+        <el-col :span="12">
+          <div
+            :style="{width:'100%',height:'450px',background:`url(`+infoImgs[0]+`) center center no-repeat`, backgroundSize: 'cover'}"
+          ></div>
+        </el-col>
+        <el-col :span="6">
+          <div
+            :style="{width:'100%',height:'225px',background:`url(`+infoImgs[3]+`) center center no-repeat`, backgroundSize: 'cover'}"
+          ></div>
+          <div
+            :style="{width:'100%',height:'225px',background:`url(`+infoImgs[4]+`) center center no-repeat`, backgroundSize: 'cover'}"
+          ></div>
+        </el-col>
+      </el-row>
+    </div>
     <div class="page">
-      <div class="page-items" style="padding-top:15px;height:20px;">
-        <headMenu></headMenu>
-      </div>
-      <div class="page-items">
-        <el-row>
-          <el-col :span="6">
-            <div
-              :style="{width:'100%',height:'225px',background:`url(`+infoImgs[1]+`) center center no-repeat`, backgroundSize: 'cover'}"
-            ></div>
-            <div
-              :style="{width:'100%',height:'225px',background:`url(`+infoImgs[2]+`) center center no-repeat`, backgroundSize: 'cover'}"
-            ></div>
-          </el-col>
-          <el-col :span="12">
-            <div
-              :style="{width:'100%',height:'450px',background:`url(`+infoImgs[0]+`) center center no-repeat`, backgroundSize: 'cover'}"
-            ></div>
-          </el-col>
-          <el-col :span="6">
-            <div
-              :style="{width:'100%',height:'225px',background:`url(`+infoImgs[3]+`) center center no-repeat`, backgroundSize: 'cover'}"
-            ></div>
-            <div
-              :style="{width:'100%',height:'225px',background:`url(`+infoImgs[4]+`) center center no-repeat`, backgroundSize: 'cover'}"
-            ></div>
-          </el-col>
-        </el-row>
-      </div>
-      <div class="page-items">
-        <div style="margin-bottom:20px;">
-          <share :config="shareConfig">分享</share>
-        </div>
-        <h2 style="margin-bottom:20px;">{{info.title}}</h2>
-        <div style="margin-bottom:20px;">
-          <el-tag
-            style="margin-right:5px;"
-            type="info"
-            size="mini"
-            v-for="(item, index) in infoTags"
-            :key="index"
-          >{{item}}</el-tag>
-        </div>
-        <div style="margin-bottom:20px;">
-          <div style="color:#f57021;font-size: 1.5em;margin-bottom:10px;">
-            <span>¥{{parseInt(info.price/100)}}</span>
-            <span style="font-size:12px;">/人起</span>
+      <el-row :gutter="20">
+        <el-col :span="18">
+          <div class="page-items">
+            <div style="margin-bottom:20px;">
+              <share :config="shareConfig">分享</share>
+            </div>
+            <h2 style="margin-bottom:20px;">{{info.title}}</h2>
+            <div style="margin-bottom:20px;">
+              <el-tag
+                style="margin-right:5px;"
+                type="info"
+                size="mini"
+                v-for="(item, index) in infoTags"
+                :key="index"
+              >{{item}}</el-tag>
+            </div>
+            <div style="margin-bottom:20px;">
+              <div style="color:#f57021;font-size: 1.5em;margin-bottom:10px;">
+                <span>¥{{parseInt(info.price/100)}}</span>
+                <span style="font-size:12px;">/人起</span>
+              </div>
+              <div style="font-size:12px;">（可接纳{{info.minPeopleNum}}-{{info.maxPeopleNum}}人）</div>
+            </div>
           </div>
-          <div style="font-size:12px;">（可接纳{{info.minPeopleNum}}-{{info.maxPeopleNum}}人）</div>
-        </div>
-      </div>
-      <div class="page-items">
-        <div
-          :class="['sel', selectPackageIndex===index?'active':'']"
-          v-for="(item, index) in info.packAge"
-          :key="index"
-          @click="selectPackage(index, item.price)"
-        >
-          <div style="margin-bottom:10px;">{{item.title}}</div>
-          <div style="margin-bottom:10px;">{{item.remark}}</div>
-          <div style="font-size: 1.2em;">
-            <span>¥{{item.price}}</span>
-            <span style="font-size:12px;">&nbsp;{{item.unit}}</span>
+          <div class="page-items">
+            <div
+              :class="['sel', selectPackageIndex===index?'active':'']"
+              v-for="(item, index) in info.packAge"
+              :key="index"
+              @click="selectPackage(index, item.price)"
+            >
+              <div style="margin-bottom:10px;">{{item.title}}</div>
+              <div style="margin-bottom:10px;">{{item.remark}}</div>
+              <div style="font-size: 1.2em;">
+                <span>¥{{item.price}}</span>
+                <span style="font-size:12px;">&nbsp;{{item.unit}}</span>
+              </div>
+            </div>
+            <div class="clearfix"></div>
           </div>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-      <div class="page-items">
-        <el-form :inline="true" label-position="left" label-width="60px">
-          <el-form-item label="人数">
-            <el-input-number v-model="selNum" :min="1" :max="100000"></el-input-number>
-          </el-form-item>
-          <el-form-item label="日期">
-            <el-date-picker
-              v-model="selDate"
-              type="date"
-              placeholder="选择日期"
-              :picker-options="pickerOptions"
-            ></el-date-picker>
-          </el-form-item>
-        </el-form>
-      </div>
-      <div class="page-items">
-        <div style="font-size: 1.5em;margin-bottom:10px;">
-          <span style="font-size:12px;margin-right:20px;">合计</span>
-          <span style="color:#f57021;">¥{{sumPrice}}</span>
-          <span style="font-size:12px;margin-right:100px;">元</span>
-          <el-button
-            type="primary"
-            style="background:#f57021;border:solid 1px #f57021;"
-            @click="submitOrder"
-          >立即预定</el-button>
-        </div>
-      </div>
-      <div class="page-items">
-        <el-tabs v-model="activeName" @tab-click="handleClick">
-          <el-tab-pane label="位置" name="first"></el-tab-pane>
-          <el-tab-pane label="产品说明" name="second"></el-tab-pane>
-          <el-tab-pane label="费用说明" name="third"></el-tab-pane>
-          <el-tab-pane label="行程安排" name="fourth"></el-tab-pane>
-        </el-tabs>
-        <h2 id="first" style="margin-bottom: 10px;">位置</h2>
-        <div v-html="info.r1" style="margin-bottom: 40px;"></div>
-        <h2 id="second" style="margin-bottom: 10px;">产品说明</h2>
-        <div v-html="info.r2" style="margin-bottom: 40px;"></div>
-        <h2 id="third" style="margin-bottom: 10px;">费用说明</h2>
-        <div v-html="info.r3" style="margin-bottom: 40px;"></div>
-        <h2 id="fourth" style="margin-bottom: 10px;">行程安排</h2>
-        <div v-html="info.r4" style="margin-bottom: 40px;"></div>
-      </div>
+          <div class="page-items">
+            <el-form :inline="true" label-position="left" label-width="60px">
+              <el-form-item label="人数">
+                <el-input-number v-model="selNum" :min="1" :max="100000"></el-input-number>
+              </el-form-item>
+              <el-form-item label="日期">
+                <el-date-picker
+                  v-model="selDate"
+                  type="date"
+                  placeholder="选择日期"
+                  :picker-options="pickerOptions"
+                ></el-date-picker>
+              </el-form-item>
+            </el-form>
+          </div>
+          <div class="page-items">
+            <div style="font-size: 1.5em;margin-bottom:10px;">
+              <span style="font-size:12px;margin-right:20px;">合计</span>
+              <span style="color:#f57021;">¥{{sumPrice}}</span>
+              <span style="font-size:12px;margin-right:100px;">元</span>
+              <el-button
+                type="primary"
+                style="background:#f57021;border:solid 1px #f57021;"
+                @click="submitOrder"
+              >立即预定</el-button>
+            </div>
+          </div>
+          <div class="page-items">
+            <el-tabs v-model="activeName" @tab-click="handleClick">
+              <el-tab-pane label="位置" name="first"></el-tab-pane>
+              <el-tab-pane label="产品说明" name="second"></el-tab-pane>
+              <el-tab-pane label="费用说明" name="third"></el-tab-pane>
+              <el-tab-pane label="行程安排" name="fourth"></el-tab-pane>
+            </el-tabs>
+            <h2 id="first" style="margin-bottom: 10px;">位置</h2>
+            <div v-html="info.r1" style="margin-bottom: 40px;"></div>
+            <h2 id="second" style="margin-bottom: 10px;">产品说明</h2>
+            <div v-html="info.r2" style="margin-bottom: 40px;"></div>
+            <h2 id="third" style="margin-bottom: 10px;">费用说明</h2>
+            <div v-html="info.r3" style="margin-bottom: 40px;"></div>
+            <h2 id="fourth" style="margin-bottom: 10px;">行程安排</h2>
+            <div v-html="info.r4" style="margin-bottom: 40px;"></div>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div v-if="infoBusinessUser.busHeadImg">
+            <el-card shadow="hover" style="border-top:2px solid #f57021;">
+              <div style="padding: 14px;">
+                <el-row>
+                  <el-col :span="10">
+                    <div style="width:65px;">
+                      <img :src="infoBusinessUser.busHeadImg" style="width:100%;border-radius: 50%;" />
+                    </div>
+                  </el-col>
+                  <el-col :span="12">
+                    <div class="manager-name">{{infoBusinessUser.busName}}</div>
+                    <div class="manager-title">{{infoBusinessUser.busTitle}}</div>
+                  </el-col>
+                </el-row>
+              </div>
+              <div style="padding: 14px;">
+                <div class="title4">{{infoBusinessUser.busPhone}}</div>
+                <div class="title5">{{infoBusinessUser.busContent}}</div>
+              </div>
+              <div style="padding:0 14px;">
+                <el-button
+                  type="primary"
+                  style="width:100%;background:#f57021;border:solid 1px #f57021;"
+                >欢迎咨询</el-button>
+              </div>
+            </el-card>
+          </div>
+        </el-col>
+      </el-row>
       <div>
         <footMenu></footMenu>
       </div>
@@ -134,6 +167,7 @@ export default {
       info: {},
       infoImgs: [],
       infoTags: [],
+      infoBusinessUser: {},
       selectPackageIndex: 0,
       selectPackagePrice: 0,
       selNum: 1,
@@ -211,6 +245,26 @@ export default {
         }
 
         this.isLoader = true
+
+        this.getBusinessUser()
+      }
+    },
+    async getBusinessUser () {
+      if (this.info.busUserId && this.info.busUserId > 0) {
+        let result = await api.getBusinessUser({
+          current: 1,
+          pageSize: 99999999,
+          total: 0
+        })
+
+        if (result) {
+          result = result.data && result.data.list ? result.data.list : []
+          this.infoBusinessUser = result.find(f => { return f.id === this.info.busUserId })
+
+          if (!this.infoBusinessUser && result.length > 0) {
+            this.infoBusinessUser = result[0]
+          }
+        }
       }
     },
     selectPackage (index, price) {
@@ -259,14 +313,14 @@ export default {
 
 <style lang="less" scoped>
   .main-page {
-    width: 1280px;
+    max-width: 1920px;
     margin: 0 auto;
     background: url("../assets/images/header_bg.jpg") repeat-x;
     background-size: 293px 50px;
   }
 
   .page {
-    width: 1024px;
+    width: 1152px;
     margin: 0 auto;
   }
 
@@ -314,6 +368,21 @@ export default {
         background-size: contain;
       }
     }
+  }
+
+  .title4 {
+    color: #999;
+    margin-bottom: 10px;
+    font-style: italic;
+  }
+  .title5 {
+    color: #999;
+    font-size: 14px;
+  }
+
+  .manager-name {
+    color: #f57021;
+    margin-bottom: 5px;
   }
 
   .el-carousel__item h3 {

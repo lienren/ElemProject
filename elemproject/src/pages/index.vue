@@ -1,7 +1,20 @@
 <template>
   <div class="main-page">
+    <div class="page-carousel">
+      <el-carousel height="500px" :interval="interval">
+        <el-carousel-item v-for="(item, index) in bigBannerLink" :key="index">
+          <div class="carousel-item">
+            <div
+              class="carousel-item-img"
+              :style="{background:`url(${item.imgUrl}) top center no-repeat`}"
+              @click="toDetail(item.url)"
+            ></div>
+          </div>
+        </el-carousel-item>
+      </el-carousel>
+    </div>
     <div class="page">
-      <div class="page-items" style="padding-top:20px;height:403px;">
+      <div class="page-items" style="padding-top:20px;height:503px;">
         <headMenu></headMenu>
       </div>
       <div class="page-items">
@@ -9,24 +22,14 @@
           <el-col :span="16">
             <div class="title">为你推荐</div>
             <el-row :gutter="20">
-              <el-col :span="12" style="margin-bottom: 20px;">
-                <div @click="toDetail(1)">
-                  <img src="../assets/images/banner1.jpg" style="width:100%;" />
-                </div>
-              </el-col>
-              <el-col :span="12" style="margin-bottom: 20px;">
-                <div @click="toDetail(1)">
-                  <img src="../assets/images/banner1.jpg" style="width:100%;" />
-                </div>
-              </el-col>
-              <el-col :span="12">
-                <div @click="toDetail(1)">
-                  <img src="../assets/images/banner1.jpg" style="width:100%;" />
-                </div>
-              </el-col>
-              <el-col :span="12">
-                <div @click="toDetail(1)">
-                  <img src="../assets/images/banner1.jpg" style="width:100%;" />
+              <el-col
+                v-for="(item, index) in bannerLink"
+                :key="index"
+                :span="12"
+                style="margin-bottom: 20px;"
+              >
+                <div @click="toDetail(item.url)">
+                  <img :src="item.imgUrl" style="width:100%;" />
                 </div>
               </el-col>
             </el-row>
@@ -378,6 +381,9 @@ export default {
     return {
       fit: 'fill',
       num: 1,
+      interval: 5000,
+      bigBannerLink: [],
+      bannerLink: [],
       groupList: [],
       groupAttrList: [],
       groupAttrListZero: [],
@@ -409,14 +415,16 @@ export default {
   },
   methods: {
     init () {
+      this.getIndexBigBannerLink()
+      this.getIndexBannerLink()
       this.getPlayGroup()
       this.getPlayPC()
       this.getPlaySite()
       this.getPlayCase()
       this.getPlayActivity()
     },
-    toDetail (id) {
-      this.$router.push({ path: `/detail?id=${id}` })
+    toDetail (url) {
+      window.location.href = url
     },
     toSearch () {
       this.$router.push({ path: `/search` })
@@ -447,6 +455,26 @@ export default {
     },
     toActivityDetail (id) {
       this.$router.push({ path: `/detail5?id=${id}` })
+    },
+    async getIndexBigBannerLink () {
+      const result = await api.getIndexBigBannerLink()
+
+      if (result && result.data) {
+        this.bigBannerLink = result.data
+        this.bigBannerLink = this.bigBannerLink.filter(f => {
+          return f.url
+        })
+        if (!this.bigBannerLink) {
+          this.bigBannerLink = []
+        }
+      }
+    },
+    async getIndexBannerLink () {
+      const result = await api.getIndexBannerLink()
+
+      if (result && result.data) {
+        this.bannerLink = result.data
+      }
     },
     async getAttr (attrType) {
       const result = await api.getAttr({
@@ -508,7 +536,7 @@ export default {
 
       if (this.pcAttrList.length > 0) {
         this.pcAttrListZero = []
-        this.pcAttrListZero = this.pcAttrListZero.concat(this.pcAttrList[3].options)
+        this.pcAttrListZero = this.pcAttrListZero.concat(this.pcAttrList[5].options)
       }
 
       const result = await api.getPlayParentChild({
@@ -539,7 +567,7 @@ export default {
 
       if (this.siteAttrList.length > 0) {
         this.siteAttrListZero = []
-        this.siteAttrListZero = this.siteAttrListZero.concat(this.siteAttrList[4].options)
+        this.siteAttrListZero = this.siteAttrListZero.concat(this.siteAttrList[5].options)
       }
 
       const result = await api.getPlaySite({
@@ -619,17 +647,43 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .main-page {
-    width: 1280px;
+  .page-carousel {
+    width: 100%;
+    min-width: 1280px;
+    height: 500px;
     margin: 0 auto;
-    background: url("../assets/images/index_bg.jpg") no-repeat;
-    background-size: contain;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
+  .carousel-item {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    .carousel-item-img {
+      max-width: 1920px;
+      height: 100%;
+      margin: 0 auto;
+      background-size: 1920px 500px;
+    }
+  }
+  .main-page {
+    max-width: 1920px;
+    min-width: 1280px;
+    /* max-width: 1920px;
+                    margin: 0 auto;
+                    background: url("../assets/images/index_bg.jpg") top center no-repeat;
+                    background-size: 1920px 500px; */
   }
 
   .page {
-    width: 1024px;
+    width: 1152px;
     margin: 0 auto;
+    z-index: 1;
   }
+
   .page-items {
     margin-bottom: 40px;
     .title {
