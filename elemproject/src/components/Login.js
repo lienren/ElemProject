@@ -83,7 +83,14 @@ export default class {
       return
     }
 
-    console.log('this.vm:', this)
+    this.vm.$store.commit('SET_USERINFO', {
+      userId: 1,
+      userPhone: '18652017319',
+      userPhoneDes: '186****7319',
+      userName: '暂无',
+      userImg: ''
+    })
+
     this.vm.$emit('login-success')
   }
 

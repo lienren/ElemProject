@@ -16,6 +16,28 @@
     <div class="page">
       <div class="page-items" style="padding-top:20px;height:503px;">
         <headMenu></headMenu>
+        <div class="page-search">
+          <div class="sorts">
+            <span :class="[searchSelectIndex===0?'active':'']" @click="searchSelectIndex=0">团建</span>
+            <span :class="[searchSelectIndex===1?'active':'']" @click="searchSelectIndex=1">萌马童游</span>
+            <span :class="[searchSelectIndex===2?'active':'']" @click="searchSelectIndex=2">场地</span>
+            <span :class="[searchSelectIndex===3?'active':'']" @click="searchSelectIndex=3">案例</span>
+            <span :class="[searchSelectIndex===4?'active':'']" @click="searchSelectIndex=4">活动</span>
+          </div>
+          <el-form label-width="0">
+            <el-form-item label>
+              <el-input placeholder="点击输入" v-model="searchText">
+                <el-button
+                  slot="append"
+                  style="width:100px;background: #f57021;border: solid 1px #f57021;color:#fff;"
+                  @click="toSearchText"
+                >
+                  <span>搜 索</span>
+                </el-button>
+              </el-input>
+            </el-form-item>
+          </el-form>
+        </div>
       </div>
       <div class="page-items">
         <el-row :gutter="20">
@@ -40,29 +62,31 @@
                 <span>免费定制专属方案</span>
               </div>
               <div class="sorts" style="font-size:16px;text-align:center;">
-                <span class="active">团建</span>
-                <span>亲子</span>
-                <span>场地</span>
-                <span>活动</span>
+                <span :class="[orderSelectIndex===0?'active':'']" @click="orderSelectIndex=0">团建</span>
+                <span :class="[orderSelectIndex===1?'active':'']" @click="orderSelectIndex=1">萌马童游</span>
+                <span :class="[orderSelectIndex===2?'active':'']" @click="orderSelectIndex=2">场地</span>
+                <span :class="[orderSelectIndex===3?'active':'']" @click="orderSelectIndex=3">案例</span>
+                <span :class="[orderSelectIndex===4?'active':'']" @click="orderSelectIndex=4">活动</span>
               </div>
               <div>
                 <el-form label-position="left" size="small" label-width="60px">
                   <el-form-item label="人数">
-                    <el-input-number v-model="num" :min="1" :max="100000"></el-input-number>
+                    <el-input-number v-model="orderPeopleNum" :min="1" :max="100000"></el-input-number>
                   </el-form-item>
-                  <el-form-item label="手机号">
-                    <el-input placeholder="请输入手机号"></el-input>
-                  </el-form-item>
-                  <el-form-item label="验证码">
-                    <el-input placeholder="请输入验证码">
-                      <el-button slot="append">短信验证</el-button>
-                    </el-input>
+                  <el-form-item label="日期">
+                    <el-date-picker
+                      v-model="selDate"
+                      type="date"
+                      placeholder="选择日期"
+                      value-format="yyyy-MM-dd"
+                      :picker-options="pickerOptions"
+                    ></el-date-picker>
                   </el-form-item>
                   <el-form-item>
                     <el-button
                       type="primary"
                       style="width:100%;background:#f57021;border:solid 1px #f57021;"
-                      @click="toSearch"
+                      @click="submitOrder"
                     >提交需求</el-button>
                   </el-form-item>
                 </el-form>
@@ -273,87 +297,24 @@
         <div style="font-size:18px;color:#999;margin-bottom:30px;">为您提供产品咨询，价格咨询，方案定制等服务。</div>
         <div>
           <el-row :gutter="20">
-            <el-col :span="6">
+            <el-col v-for="(item, index) in businessUserList" :key="index" :span="6">
               <el-card :body-style="{ padding: '0px' }">
                 <div style="padding: 14px;">
                   <el-row>
-                    <el-col :span="12">
+                    <el-col :span="10">
                       <div style="width:65px;">
-                        <img src="../assets/images/banner8.jpg" style="width:100%;" />
+                        <img :src="item.busHeadImg" style="width:100%;border-radius: 50%;" />
                       </div>
                     </el-col>
-                    <el-col :span="12">
-                      <div class="manager-name">ChengSi</div>
-                      <div class="manager-title">资深顾问</div>
+                    <el-col :span="14">
+                      <div class="manager-name">{{item.busName}}</div>
+                      <div class="manager-title">{{item.busTitle}}</div>
                     </el-col>
                   </el-row>
                 </div>
                 <div style="padding: 14px;">
-                  <div class="title4">029-8888888</div>
-                  <div class="title5">擅长团建方案，经验丰富，参与执行过多次大型团建活动，对客户的要求百分百投入，注重细节善于变通。</div>
-                </div>
-              </el-card>
-            </el-col>
-            <el-col :span="6">
-              <el-card :body-style="{ padding: '0px' }">
-                <div style="padding: 14px;">
-                  <el-row>
-                    <el-col :span="12">
-                      <div style="width:65px;">
-                        <img src="../assets/images/banner8.jpg" style="width:100%;" />
-                      </div>
-                    </el-col>
-                    <el-col :span="12">
-                      <div class="manager-name">ChengSi</div>
-                      <div class="manager-title">资深顾问</div>
-                    </el-col>
-                  </el-row>
-                </div>
-                <div style="padding: 14px;">
-                  <div class="title4">029-8888888</div>
-                  <div class="title5">擅长团建方案，经验丰富，参与执行过多次大型团建活动，对客户的要求百分百投入，注重细节善于变通。</div>
-                </div>
-              </el-card>
-            </el-col>
-            <el-col :span="6">
-              <el-card :body-style="{ padding: '0px' }">
-                <div style="padding: 14px;">
-                  <el-row>
-                    <el-col :span="12">
-                      <div style="width:65px;">
-                        <img src="../assets/images/banner8.jpg" style="width:100%;" />
-                      </div>
-                    </el-col>
-                    <el-col :span="12">
-                      <div class="manager-name">ChengSi</div>
-                      <div class="manager-title">资深顾问</div>
-                    </el-col>
-                  </el-row>
-                </div>
-                <div style="padding: 14px;">
-                  <div class="title4">029-8888888</div>
-                  <div class="title5">擅长团建方案，经验丰富，参与执行过多次大型团建活动，对客户的要求百分百投入，注重细节善于变通。</div>
-                </div>
-              </el-card>
-            </el-col>
-            <el-col :span="6">
-              <el-card :body-style="{ padding: '0px' }">
-                <div style="padding: 14px;">
-                  <el-row>
-                    <el-col :span="12">
-                      <div style="width:65px;">
-                        <img src="../assets/images/banner8.jpg" style="width:100%;" />
-                      </div>
-                    </el-col>
-                    <el-col :span="12">
-                      <div class="manager-name">ChengSi</div>
-                      <div class="manager-title">资深顾问</div>
-                    </el-col>
-                  </el-row>
-                </div>
-                <div style="padding: 14px;">
-                  <div class="title4">029-8888888</div>
-                  <div class="title5">擅长团建方案，经验丰富，参与执行过多次大型团建活动，对客户的要求百分百投入，注重细节善于变通。</div>
+                  <div class="title4">{{item.busPhone}}</div>
+                  <div class="title5">{{item.busContent}}</div>
                 </div>
               </el-card>
             </el-col>
@@ -372,6 +333,8 @@ import headMenu from '../components/HeadMenu'
 import footMenu from '../components/FootMenu'
 import api from '../api/yp'
 
+const orderType = [1, 4, 3, 5, 2]
+
 export default {
   components: {
     headMenu,
@@ -380,7 +343,6 @@ export default {
   data () {
     return {
       fit: 'fill',
-      num: 1,
       interval: 5000,
       bigBannerLink: [],
       bannerLink: [],
@@ -398,12 +360,26 @@ export default {
       caseAttrListZero: [],
       activityList: [],
       activityAttrList: [],
-      activityAttrListZero: []
+      activityAttrListZero: [],
+      searchText: '',
+      searchSelectIndex: 0,
+      businessUserList: [],
+      orderSelectIndex: 0,
+      pickerOptions: {
+        disabledDate (time) {
+          return time.getTime() + 24 * 3600000 <= Date.now()
+        }
+      },
+      selDate: '',
+      orderPeopleNum: 1
     }
   },
   computed: {
     height () {
       return this.$utils.Common.getWidthHeight().height - 180
+    },
+    userInfo () {
+      return this.$store.state.global.userInfo
     }
   },
   created () { },
@@ -422,6 +398,7 @@ export default {
       this.getPlaySite()
       this.getPlayCase()
       this.getPlayActivity()
+      this.getBusinessUser()
     },
     toDetail (url) {
       window.location.href = url
@@ -455,6 +432,25 @@ export default {
     },
     toActivityDetail (id) {
       this.$router.push({ path: `/detail5?id=${id}` })
+    },
+    toSearchText () {
+      switch (this.searchSelectIndex) {
+        case 0:
+          this.toSearch()
+          break
+        case 1:
+          this.toSearch2()
+          break
+        case 2:
+          this.toSearch3()
+          break
+        case 3:
+          this.toSearch4()
+          break
+        case 4:
+          this.toSearch5()
+          break
+      }
     },
     async getIndexBigBannerLink () {
       const result = await api.getIndexBigBannerLink()
@@ -641,6 +637,47 @@ export default {
       if (result) {
         this.activityList = result.data.list || []
       }
+    },
+    async getBusinessUser () {
+      const result = await api.getBusinessUser({
+        current: 1,
+        pageSize: 4,
+        total: 0
+      })
+
+      if (result) {
+        this.businessUserList = result.data && result.data.list ? result.data.list : []
+      }
+    },
+    async submitOrder () {
+      if (!this.userInfo) {
+        if (!this.$store.state.global.loginDialogIsShow) {
+          this.$store.commit('SET_LOGINDIALOGISSHOW', true)
+        }
+        return
+      }
+
+      if (this.selDate === '') {
+        this.$message.error('请选择日期！')
+        return
+      }
+
+      await api.addOrder({
+        otype: orderType[this.orderSelectIndex],
+        opeopleNum: this.orderPeopleNum,
+        oselectTime: this.selDate,
+        userId: this.userInfo.userId,
+        userPhone: this.userInfo.userPhone,
+        userName: this.userInfo.userName
+      })
+
+      this.orderPeopleNum = 1
+      this.selDate = ''
+
+      this.$message({
+        message: '您的需求已提交成功，我们的客户经理稍后会联系您！',
+        type: 'success'
+      })
     }
   }
 }
@@ -672,10 +709,6 @@ export default {
   .main-page {
     max-width: 1920px;
     min-width: 1280px;
-    /* max-width: 1920px;
-                    margin: 0 auto;
-                    background: url("../assets/images/index_bg.jpg") top center no-repeat;
-                    background-size: 1920px 500px; */
   }
 
   .page {
@@ -699,9 +732,10 @@ export default {
       margin-bottom: 20px;
       span {
         cursor: pointer;
-        margin-right: 10px;
+        margin-right: 15px;
         &.active {
           color: #f57021;
+          font-weight: bold;
         }
 
         &.more {
@@ -794,6 +828,22 @@ export default {
       line-height: 40px;
       width: 70px;
       border-top: solid 2px #f57021;
+    }
+  }
+
+  .page-search {
+    position: absolute;
+    width: 500px;
+    height: 110px;
+    left: 50%;
+    top: 45%;
+    margin-left: -250px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 20px;
+
+    .sorts {
+      margin-bottom: 10px;
     }
   }
 </style>

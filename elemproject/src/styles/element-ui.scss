@@ -78,5 +78,10 @@
  }
 
  .el-button--text:hover {
-  color: #f57021;
-}
+   color: #f57021;
+ }
+
+ .el-input-group__append {
+   background: #f57021;
+   border: 0;
+ }

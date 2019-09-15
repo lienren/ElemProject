@@ -79,6 +79,7 @@
                   v-model="selDate"
                   type="date"
                   placeholder="选择日期"
+                  value-format="yyyy-MM-dd"
                   :picker-options="pickerOptions"
                 ></el-date-picker>
               </el-form-item>
@@ -190,6 +191,9 @@ export default {
     },
     sumPrice () {
       return this.selNum * this.selectPackagePrice
+    },
+    userInfo () {
+      return this.$store.state.global.userInfo
     }
   },
   created () {
@@ -275,10 +279,41 @@ export default {
       this.selectPackagePrice = parseInt(price)
     },
     async submitOrder () {
+      if (!this.userInfo) {
+        if (!this.$store.state.global.loginDialogIsShow) {
+          this.$store.commit('SET_LOGINDIALOGISSHOW', true)
+        }
+        return
+      }
+
       if (this.selDate === '') {
         this.$message.error('请选择日期！')
         return
       }
+
+      if (this.info.packAge.length === 0 || !this.info.packAge[this.selectPackageIndex]) {
+        this.$message.error('请选择一个套餐！')
+        return
+      }
+
+      await api.addOrder({
+        otype: 4,
+        opeopleNum: this.selNum,
+        oprice: parseInt(this.sumPrice * 100),
+        oselectTime: this.selDate,
+        userId: this.userInfo.userId,
+        userPhone: this.userInfo.userPhone,
+        userName: this.userInfo.userName,
+        oprojectId: this.id,
+        oprojectName: this.info.title,
+        oprojectPageAge: JSON.stringify(this.info.packAge[this.selectPackageIndex]),
+        oprojectBusUserId: this.infoBusinessUser.id ? this.infoBusinessUser.id : 0,
+        oprojectBusUserName: this.infoBusinessUser.busName ? this.infoBusinessUser.busName : '',
+        oprojectBusUserInfo: JSON.stringify(this.infoBusinessUser)
+      })
+
+      this.selNum = 1
+      this.selDate = ''
 
       this.$message({
         message: '您的需求已提交成功，我们的客户经理稍后会联系您！',

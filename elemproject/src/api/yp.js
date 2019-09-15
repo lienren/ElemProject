@@ -2,7 +2,7 @@
  * @Author: Lienren
  * @Date: 2019-08-10 14:11:58
  * @Last Modified by: Lienren
- * @Last Modified time: 2019-09-13 00:02:39
+ * @Last Modified time: 2019-09-16 01:16:09
  */
 import Vue from 'vue'
 
@@ -48,5 +48,8 @@ export default {
   },
   getBusinessUser (body, op = {}) {
     return Vue.$api.xHttp.post(`http://manage.youngplay.net/youngplay/getBusinessUser`, body, op)
+  },
+  addOrder (body, op = {}) {
+    return Vue.$api.xHttp.post(`http://manage.youngplay.net/youngplay/addOrder`, body, op)
   }
 }

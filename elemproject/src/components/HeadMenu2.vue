@@ -55,13 +55,23 @@
           <el-col :span="10">
             <div style="margin-top:0px;">
               <el-input size="mini" placeholder="请输入内容">
-                <el-button slot="append" icon="el-icon-search"></el-button>
+                <el-button slot="append" icon="el-icon-search" style="color:#fff;"></el-button>
               </el-input>
             </div>
           </el-col>
           <el-col :span="8">
             <div style="text-align:right;line-height:24px;font-size:13px;">
-              <el-link class="link" :underline="false" target="_self" @click="LoginDialogIsShow=true">登录/注册</el-link>
+              <el-link
+                v-if="!userInfo"
+                class="link"
+                :underline="false"
+                @click="openLogin"
+                target="_self"
+              >登录/注册</el-link>
+              <el-link v-if="userInfo" class="link" :underline="false" target="_self">
+                <i class="el-icon-user"></i>
+                {{userInfo.userPhoneDes}}
+              </el-link>
               <el-link class="link" :underline="false" target="_self" @click="toMsg">橙主入驻</el-link>
             </div>
           </el-col>
@@ -69,23 +79,30 @@
       </el-col>
     </el-row>
     <div v-if="LoginDialogIsShow" class="login-contain">
-      <Login @login-close="LoginDialogIsShow=false" @login-success="LoginDialogIsShow=false"></Login>
+      <Login @login-close="closeLogin" @login-success="closeLogin"></Login>
     </div>
   </div>
 </template>
 
 <script>
 import Login from '../components/Login.vue'
+import { mapState } from 'vuex'
+
 export default {
   components: {
     Login
   },
   data () {
     return {
-      LoginDialogIsShow: false
     }
   },
   computed: {
+    ...mapState({
+      LoginDialogIsShow: ({ global }) => global.loginDialogIsShow
+    }),
+    userInfo () {
+      return this.$store.state.global.userInfo
+    }
   },
   created () { },
   beforeDestroy () { },
@@ -96,6 +113,16 @@ export default {
   methods: {
     toHome () {
       this.$router.push({ path: `/` })
+    },
+    openLogin () {
+      if (!this.$store.state.global.loginDialogIsShow) {
+        this.$store.commit('SET_LOGINDIALOGISSHOW', true)
+      }
+    },
+    closeLogin () {
+      if (this.$store.state.global.loginDialogIsShow) {
+        this.$store.commit('SET_LOGINDIALOGISSHOW', false)
+      }
     },
     toMsg () {
       this.$message({
