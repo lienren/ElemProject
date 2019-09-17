@@ -21,8 +21,6 @@
             <span :class="[searchSelectIndex===0?'active':'']" @click="searchSelectIndex=0">团建</span>
             <span :class="[searchSelectIndex===1?'active':'']" @click="searchSelectIndex=1">萌马童游</span>
             <span :class="[searchSelectIndex===2?'active':'']" @click="searchSelectIndex=2">场地</span>
-            <span :class="[searchSelectIndex===3?'active':'']" @click="searchSelectIndex=3">案例</span>
-            <span :class="[searchSelectIndex===4?'active':'']" @click="searchSelectIndex=4">活动</span>
           </div>
           <el-form label-width="0">
             <el-form-item label>
@@ -65,7 +63,6 @@
                 <span :class="[orderSelectIndex===0?'active':'']" @click="orderSelectIndex=0">团建</span>
                 <span :class="[orderSelectIndex===1?'active':'']" @click="orderSelectIndex=1">萌马童游</span>
                 <span :class="[orderSelectIndex===2?'active':'']" @click="orderSelectIndex=2">场地</span>
-                <span :class="[orderSelectIndex===3?'active':'']" @click="orderSelectIndex=3">案例</span>
                 <span :class="[orderSelectIndex===4?'active':'']" @click="orderSelectIndex=4">活动</span>
               </div>
               <div>
@@ -836,7 +833,7 @@ export default {
     width: 500px;
     height: 110px;
     left: 50%;
-    top: 45%;
+    top: 310px;
     margin-left: -250px;
     background-color: rgba(0, 0, 0, 0.6);
     color: #fff;

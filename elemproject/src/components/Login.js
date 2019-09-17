@@ -1,3 +1,5 @@
+import api from '../api/yp'
+
 // 验证码默认参数
 const countdownDefaultData = {
   timeoutCount: 60,
@@ -63,17 +65,23 @@ export default class {
     }
     this.vm.countdown.txt = '发送中'
 
-    this.vm.$notify({
-      title: '成功',
-      message: '短信验证码已发送',
-      type: 'success'
+    const result = await api.sendUserLoginCode({
+      phone: this.vm.loginModel.phone
     })
 
-    // 倒计时
-    this.countDown()
-    this.vm.countdown.timeinterval = setInterval(() => {
+    if (result.code === '000000') {
+      this.vm.$notify({
+        title: '成功',
+        message: '短信验证码已发送',
+        type: 'success'
+      })
+
+      // 倒计时
       this.countDown()
-    }, 1000)
+      this.vm.countdown.timeinterval = setInterval(() => {
+        this.countDown()
+      }, 1000)
+    }
   }
 
   // 平台登录
@@ -83,15 +91,27 @@ export default class {
       return
     }
 
-    this.vm.$store.commit('SET_USERINFO', {
-      userId: 1,
-      userPhone: '18652017319',
-      userPhoneDes: '186****7319',
-      userName: '暂无',
-      userImg: ''
+    if (!this.vm.$utils.Validate.chkFormat(this.vm.loginModel.phone, 'phone')) {
+      this.vm.$message.error('请正确输入11位手机号')
+      return
+    }
+
+    const result = await api.userLogin({
+      phone: this.vm.loginModel.phone,
+      code: this.vm.loginModel.smsCode
     })
 
-    this.vm.$emit('login-success')
+    if (result.code === '000000' && result.data && result.data.userId) {
+      this.vm.$store.commit('SET_USERINFO', {
+        userId: result.data.userId,
+        userPhone: result.data.userPhone,
+        userPhoneDes: result.data.userPhoneDes,
+        userName: result.data.userName,
+        userImg: result.data.userImg
+      })
+
+      this.vm.$emit('login-success')
+    }
   }
 
   close () {
