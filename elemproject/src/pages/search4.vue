@@ -1,47 +1,8 @@
 <template>
   <div class="main-page">
     <div class="page">
-      <div class="page-items" style="padding-top:15px;height:20px;" @click="attrSelectShow=false">
+      <div class="page-items" style="padding-top:10px;height:20px;" @click="attrSelectShow=false">
         <headMenu></headMenu>
-      </div>
-      <div class="page-items" style="margin-bottom: 20px;">
-        <div style="font-size:12px;margin-bottom:10px;color:#666;">可筛选条件</div>
-        <div>
-          <el-row :gutter="10">
-            <div
-              v-for="(item, index) in attrList"
-              :key="index"
-              :class="['search-condition', checkAttr(item.attrName)?'active':'']"
-              @click="selectAttrIndex(item, index)"
-            >{{item.attrName}}</div>
-          </el-row>
-        </div>
-        <div
-          :class="['search-condition-list',attrSelectShow?'':'none']"
-          :style="{'left':attrSelectLeft+'px'}"
-        >
-          <el-row :gutter="10">
-            <el-col
-              v-for="(option, index) in attrOptionList"
-              :key="index"
-              :span="6"
-              style="margin-bottom: 10px;"
-            >
-              <div
-                :class="['key-word', checkAttrValue(attrSelectName, option)?'active':'']"
-                @click="selectAttr(attrSelectName, option)"
-              >{{option}}</div>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-button
-              style="float:right;"
-              type="text"
-              icon="el-icon-close"
-              @click="attrSelectShow=false"
-            ></el-button>
-          </el-row>
-        </div>
       </div>
       <div class="page-items" @click="attrSelectShow=false">
         <el-row :gutter="20" style="margin-bottom:20px;">
@@ -55,18 +16,21 @@
               <div @click="toCaseDetail(item.id)">
                 <img :src="item.masterImg" style="width:100%;" />
                 <div style="padding: 14px;">
-                  <div class="title1" style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;">{{item.subTitle}}</div>
-                  <div class="title2" style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;">{{item.title}}</div>
+                  <div
+                    class="title1"
+                    style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;"
+                  >{{item.subTitle}}</div>
+                  <div
+                    class="title2"
+                    style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;"
+                  >{{item.title}}</div>
                   <div class="title3">
                     <el-row>
                       <el-col
                         :span="14"
                         style="padding-top:3px;"
                       >{{item.strokeDay}}天/适合{{item.minPeopleNum}}~{{item.maxPeopleNum}}人</el-col>
-                      <el-col
-                        :span="10"
-                        style="font-size:16px;color:#f57021;text-align:right;"
-                      >¥{{parseInt(item.price/100)}}/人起</el-col>
+                      <el-col :span="10" style="font-size:16px;color:#f57021;text-align:right;"></el-col>
                     </el-row>
                   </div>
                 </div>
@@ -158,16 +122,18 @@ export default {
 
       if (result) {
         result.data.list.forEach(item => {
-          this.attrList.push({
-            id: item.id,
-            attrName: item.attrName,
-            isCheck: item.isCheck,
-            options: item.attrValues ? item.attrValues.map(m => {
-              return m.attrValue
-            }) : [],
-            selectItems: item.isCheck === 1 ? [] : '',
-            defaultItems: item.isCheck === 1 ? [] : ''
-          })
+          if (item.attrName !== '首页类型') {
+            this.attrList.push({
+              id: item.id,
+              attrName: item.attrName,
+              isCheck: item.isCheck,
+              options: item.attrValues ? item.attrValues.map(m => {
+                return m.attrValue
+              }) : [],
+              selectItems: item.isCheck === 1 ? [] : '',
+              defaultItems: item.isCheck === 1 ? [] : ''
+            })
+          }
         })
       }
     },
@@ -221,7 +187,13 @@ export default {
           })
 
           if (find) {
-            this.filterCaseList.push(this.caseList[i])
+            const findFilter = this.filterCaseList.find(f => {
+              return f.id === this.caseList[i].id
+            })
+
+            if (!findFilter) {
+              this.filterCaseList.push(this.caseList[i])
+            }
           }
         })
       }

@@ -1,7 +1,7 @@
 <template>
   <div class="main-page">
     <div class="page">
-      <div class="page-items" style="padding-top:15px;height:20px;" @click="attrSelectShow=false">
+      <div class="page-items" style="padding-top:10px;height:20px;" @click="attrSelectShow=false">
         <headMenu></headMenu>
       </div>
       <div class="page-items" style="margin-bottom: 20px;">
@@ -164,16 +164,18 @@ export default {
 
       if (result) {
         result.data.list.forEach(item => {
-          this.attrList.push({
-            id: item.id,
-            attrName: item.attrName,
-            isCheck: item.isCheck,
-            options: item.attrValues ? item.attrValues.map(m => {
-              return m.attrValue
-            }) : [],
-            selectItems: item.isCheck === 1 ? [] : '',
-            defaultItems: item.isCheck === 1 ? [] : ''
-          })
+          if (item.attrName !== '首页类型') {
+            this.attrList.push({
+              id: item.id,
+              attrName: item.attrName,
+              isCheck: item.isCheck,
+              options: item.attrValues ? item.attrValues.map(m => {
+                return m.attrValue
+              }) : [],
+              selectItems: item.isCheck === 1 ? [] : '',
+              defaultItems: item.isCheck === 1 ? [] : ''
+            })
+          }
         })
       }
     },
@@ -226,11 +228,21 @@ export default {
             return f1.key === f.attr && f1.val === f.attrValue
           })
 
+          console.log('find:', find)
+
           if (find) {
-            this.filterGroupList.push(this.groupList[i])
+            const findFilter = this.filterGroupList.find(f => {
+              return f.id === this.groupList[i].id
+            })
+
+            if (!findFilter) {
+              this.filterGroupList.push(this.groupList[i])
+            }
           }
         })
       }
+
+      console.log('this.filterGroupList:', this.filterGroupList)
     }
   }
 }

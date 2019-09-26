@@ -22,24 +22,24 @@
             </el-col>
             <el-col :span="4">
               <div class="bottom-first-menu bottom-menu" @click="toSearch2">萌马童游</div>
-              <div class="bottom-menu" @click="toSearch2">旅行团建</div>
-              <div class="bottom-menu" @click="toSearch2">培训团建</div>
-              <div class="bottom-menu" @click="toSearch2">主题团建</div>
-              <div class="bottom-menu" @click="toSearch2">定制团建</div>
+              <div class="bottom-menu" @click="toSearch2">亲子活动</div>
+              <div class="bottom-menu" @click="toSearch2">亲子出行</div>
             </el-col>
             <el-col :span="4">
               <div class="bottom-first-menu bottom-menu" @click="toSearch3">场地</div>
-              <div class="bottom-menu" @click="toSearch3">旅行团建</div>
-              <div class="bottom-menu" @click="toSearch3">培训团建</div>
-              <div class="bottom-menu" @click="toSearch3">主题团建</div>
-              <div class="bottom-menu" @click="toSearch3">定制团建</div>
+              <div class="bottom-menu" @click="toSearch3">轰趴</div>
+              <div class="bottom-menu" @click="toSearch3">酒店</div>
+              <div class="bottom-menu" @click="toSearch3">主题</div>
+              <div class="bottom-menu" @click="toSearch3">特色</div>
+              <div class="bottom-menu" @click="toSearch3">会议</div>
+              <div class="bottom-menu" @click="toSearch3">年会</div>
+              <div class="bottom-menu" @click="toSearch3">其他活动</div>
             </el-col>
             <el-col :span="4">
               <div class="bottom-first-menu bottom-menu" @click="toSearch3">关于我们</div>
-              <div class="bottom-menu" @click="toSearch">旅行团建</div>
-              <div class="bottom-menu" @click="toSearch">培训团建</div>
-              <div class="bottom-menu" @click="toSearch">主题团建</div>
-              <div class="bottom-menu" @click="toSearch">定制团建</div>
+              <div class="bottom-menu" @click="toSearch">关于橙汇玩</div>
+              <div class="bottom-menu" @click="toSearch">加入橙汇玩</div>
+              <div class="bottom-menu" @click="toSearch">服务条款</div>
             </el-col>
           </el-row>
         </el-col>

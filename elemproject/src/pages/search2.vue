@@ -1,7 +1,7 @@
 <template>
   <div class="main-page">
     <div class="page">
-      <div class="page-items" style="padding-top:15px;height:20px;" @click="attrSelectShow=false">
+      <div class="page-items" style="padding-top:10px;height:20px;" @click="attrSelectShow=false">
         <headMenu></headMenu>
       </div>
       <div class="page-items" style="margin-bottom: 20px;">
@@ -158,16 +158,18 @@ export default {
 
       if (result) {
         result.data.list.forEach(item => {
-          this.attrList.push({
-            id: item.id,
-            attrName: item.attrName,
-            isCheck: item.isCheck,
-            options: item.attrValues ? item.attrValues.map(m => {
-              return m.attrValue
-            }) : [],
-            selectItems: item.isCheck === 1 ? [] : '',
-            defaultItems: item.isCheck === 1 ? [] : ''
-          })
+          if (item.attrName !== '首页类型') {
+            this.attrList.push({
+              id: item.id,
+              attrName: item.attrName,
+              isCheck: item.isCheck,
+              options: item.attrValues ? item.attrValues.map(m => {
+                return m.attrValue
+              }) : [],
+              selectItems: item.isCheck === 1 ? [] : '',
+              defaultItems: item.isCheck === 1 ? [] : ''
+            })
+          }
         })
       }
     },
@@ -221,7 +223,13 @@ export default {
           })
 
           if (find) {
-            this.filterPCList.push(this.pcList[i])
+            const findFilter = this.filterPCList.find(f => {
+              return f.id === this.pcList[i].id
+            })
+
+            if (!findFilter) {
+              this.filterPCList.push(this.pcList[i])
+            }
           }
         })
       }

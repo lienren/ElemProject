@@ -1,7 +1,7 @@
 <template>
   <div class="main-page">
     <div class="page">
-      <div class="page-items" style="padding-top:15px;height:20px;" @click="attrSelectShow=false">
+      <div class="page-items" style="padding-top:10px;height:20px;" @click="attrSelectShow=false">
         <headMenu></headMenu>
       </div>
       <div class="page-items" style="margin-bottom: 20px;">
@@ -62,7 +62,7 @@
                       <el-col
                         :span="14"
                         style="padding-top:3px;"
-                      >{{item.strokeDay}}天/适合{{item.minPeopleNum}}~{{item.maxPeopleNum}}人</el-col>
+                      >适合{{item.peopleNum}}人</el-col>
                       <el-col
                         :span="10"
                         style="font-size:16px;color:#f57021;text-align:right;"
@@ -158,16 +158,18 @@ export default {
 
       if (result) {
         result.data.list.forEach(item => {
-          this.attrList.push({
-            id: item.id,
-            attrName: item.attrName,
-            isCheck: item.isCheck,
-            options: item.attrValues ? item.attrValues.map(m => {
-              return m.attrValue
-            }) : [],
-            selectItems: item.isCheck === 1 ? [] : '',
-            defaultItems: item.isCheck === 1 ? [] : ''
-          })
+          if (item.attrName !== '首页类型') {
+            this.attrList.push({
+              id: item.id,
+              attrName: item.attrName,
+              isCheck: item.isCheck,
+              options: item.attrValues ? item.attrValues.map(m => {
+                return m.attrValue
+              }) : [],
+              selectItems: item.isCheck === 1 ? [] : '',
+              defaultItems: item.isCheck === 1 ? [] : ''
+            })
+          }
         })
       }
     },
@@ -221,7 +223,13 @@ export default {
           })
 
           if (find) {
-            this.filterSiteList.push(this.siteList[i])
+            const findFilter = this.filterSiteList.find(f => {
+              return f.id === this.siteList[i].id
+            })
+
+            if (!findFilter) {
+              this.filterSiteList.push(this.siteList[i])
+            }
           }
         })
       }

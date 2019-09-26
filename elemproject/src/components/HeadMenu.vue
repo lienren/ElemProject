@@ -9,7 +9,7 @@
             </div>
           </el-col>
           <el-col :span="18">
-            <div style="line-height:22px;">
+            <div style="line-height:22px;padding-left:10px;">
               <el-link
                 style="font-size:15px;"
                 class="link"
@@ -125,7 +125,7 @@ export default {
 <style lang="less" scoped>
   .link {
     color: #fff;
-    margin-right: 15px;
+    margin-right: 30px;
   }
 
   .login-contain {

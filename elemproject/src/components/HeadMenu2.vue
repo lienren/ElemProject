@@ -9,7 +9,7 @@
             </div>
           </el-col>
           <el-col :span="20">
-            <div style="line-height:24px;">
+            <div style="line-height:26px;padding-left:20px;">
               <el-link
                 style="font-size:15px;"
                 class="link"
@@ -52,14 +52,14 @@
       <el-col :span="12">
         <el-row>
           <el-col :span="6">&nbsp;</el-col>
-          <el-col :span="10">
+          <el-col :span="8">
             <div style="margin-top:0px;">
               <el-input size="mini" placeholder="请输入内容">
                 <el-button slot="append" icon="el-icon-search" style="color:#fff;"></el-button>
               </el-input>
             </div>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="10">
             <div style="text-align:right;line-height:24px;font-size:13px;">
               <el-link
                 v-if="!userInfo"
@@ -137,7 +137,7 @@ export default {
 <style lang="less" scoped>
   .link {
     color: #666;
-    margin-right: 15px;
+    margin-right: 30px;
   }
 
   .login-contain {

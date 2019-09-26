@@ -57,7 +57,7 @@
           <el-col :span="8">
             <el-card shadow="never">
               <div slot="header" class="clearfix">
-                <span>免费定制专属方案</span>
+                <div style="text-align: center;font-weight:bold;font-size:18px;font-style:italic;">免费定制专属方案</div>
               </div>
               <div class="sorts" style="font-size:16px;text-align:center;">
                 <span :class="[orderSelectIndex===0?'active':'']" @click="orderSelectIndex=0">团建</span>
@@ -155,7 +155,7 @@
         <el-row :gutter="20">
           <el-col v-for="(item, index) in pcList" :key="index" :span="12">
             <div
-              :style="{marginBottom:'20px',width:'100%',height:'180px',background:`url(`+item.masterImg+`) center center no-repeat`, backgroundSize: 'cover'}"
+              :style="{marginBottom:'20px',width:'100%',height:'180px',background:`url(`+JSON.parse(item.subImg)[4]+`) center center no-repeat`, backgroundSize: 'cover'}"
               @click="toPCDetail(item.id)"
             ></div>
           </el-col>
@@ -174,7 +174,7 @@
         <el-row :gutter="20">
           <el-col v-for="(item, index) in activityList" :key="index" :span="6">
             <div
-              :style="{marginBottom:'20px',width:'100%',height:'300px',background:`url(`+item.masterImg+`) center center no-repeat`, backgroundSize: 'cover'}"
+              :style="{marginBottom:'20px',width:'100%',height:'300px',background:`url(`+JSON.parse(item.subImg)[4]+`) center center no-repeat`, backgroundSize: 'cover'}"
               @click="toActivityDetail(item.id)"
             ></div>
           </el-col>
@@ -203,20 +203,20 @@
       </div>
       <div class="page-items">
         <div class="title">看看橙友怎么说</div>
-        <div style="margin-bottom:30px;">
+        <div style="margin-bottom:50px;">
           <el-row :gutter="50">
             <el-col :span="12">
               <div>
                 <el-row :gutter="30">
                   <el-col :span="12">
-                    <div>
-                      <img src="../assets/images/banner6.jpg" />
+                    <div style="text-align:center;">
+                      <img src="../assets/images/banner6.jpg" style="margin:0 auto;width:100px;height:100px;object-fit:cover;border-radius:100%;" />
+                      <div style="font-size:14px;color:#f57021;">池塘边的萤火虫</div>
                     </div>
                   </el-col>
                   <el-col :span="12">
                     <div>
-                      <div class="user-name">池塘边的萤火虫 / 用户</div>
-                      <div class="user-title">西安思创合壹 行政主管</div>
+                      <div class="user-name">西安思创合壹 / 行政主管</div>
                       <div
                         class="user-remark"
                       >第一次接触橙汇玩，在古北水镇做的特色寻宝活动，教练带活动给力，平时很闷的程序员哥哥们都玩得很嗨；年会也选择了百场汇做重返校园的主题，对接的过程中餐有一些问题，场地也及时解决了，橙汇玩让我们很省心。</div>
@@ -229,14 +229,14 @@
               <div>
                 <el-row :gutter="30">
                   <el-col :span="12">
-                    <div>
-                      <img src="../assets/images/banner6.jpg" />
+                    <div style="text-align:center;">
+                      <img src="../assets/images/banner6.jpg" style="margin:0 auto;width:100px;height:100px;object-fit:cover;border-radius:100%;" />
+                      <div style="font-size:14px;color:#f57021;">池塘边的萤火虫</div>
                     </div>
                   </el-col>
                   <el-col :span="12">
                     <div>
-                      <div class="user-name">池塘边的萤火虫 / 用户</div>
-                      <div class="user-title">西安思创合壹 行政主管</div>
+                      <div class="user-name">西安思创合壹 / 行政主管</div>
                       <div
                         class="user-remark"
                       >第一次接触橙汇玩，在古北水镇做的特色寻宝活动，教练带活动给力，平时很闷的程序员哥哥们都玩得很嗨；年会也选择了百场汇做重返校园的主题，对接的过程中餐有一些问题，场地也及时解决了，橙汇玩让我们很省心。</div>
@@ -251,40 +251,40 @@
         <div>
           <el-row>
             <el-col :span="4" style="margin-bottom:10px;">
-              <img src="../assets/images/banner7.jpg" />
+              <img src="../assets/images/icon1.jpg" />
             </el-col>
             <el-col :span="4" style="margin-bottom:10px;">
-              <img src="../assets/images/banner7.jpg" />
+              <img src="../assets/images/icon2.jpg" />
             </el-col>
             <el-col :span="4" style="margin-bottom:10px;">
-              <img src="../assets/images/banner7.jpg" />
+              <img src="../assets/images/icon3.jpg" />
             </el-col>
             <el-col :span="4" style="margin-bottom:10px;">
-              <img src="../assets/images/banner7.jpg" />
+              <img src="../assets/images/icon4.jpg" />
             </el-col>
             <el-col :span="4" style="margin-bottom:10px;">
-              <img src="../assets/images/banner7.jpg" />
+              <img src="../assets/images/icon5.jpg" />
             </el-col>
             <el-col :span="4" style="margin-bottom:10px;">
-              <img src="../assets/images/banner7.jpg" />
+              <img src="../assets/images/icon6.jpg" />
             </el-col>
             <el-col :span="4" style="margin-bottom:10px;">
-              <img src="../assets/images/banner7.jpg" />
+              <img src="../assets/images/icon7.jpg" />
             </el-col>
             <el-col :span="4" style="margin-bottom:10px;">
-              <img src="../assets/images/banner7.jpg" />
+              <img src="../assets/images/icon8.jpg" />
             </el-col>
             <el-col :span="4" style="margin-bottom:10px;">
-              <img src="../assets/images/banner7.jpg" />
+              <img src="../assets/images/icon9.jpg" />
             </el-col>
             <el-col :span="4" style="margin-bottom:10px;">
-              <img src="../assets/images/banner7.jpg" />
+              <img src="../assets/images/icon10.jpg" />
             </el-col>
             <el-col :span="4" style="margin-bottom:10px;">
-              <img src="../assets/images/banner7.jpg" />
+              <img src="../assets/images/icon11.jpg" />
             </el-col>
             <el-col :span="4" style="margin-bottom:10px;">
-              <img src="../assets/images/banner7.jpg" />
+              <img src="../assets/images/icon12.jpg" />
             </el-col>
           </el-row>
         </div>
@@ -498,7 +498,7 @@ export default {
 
       if (this.groupAttrList.length > 0) {
         this.groupAttrListZero = []
-        this.groupAttrListZero = this.groupAttrListZero.concat(this.groupAttrList[0].options)
+        this.groupAttrListZero = this.groupAttrListZero.concat(this.groupAttrList[5].options)
       }
 
       const result = await api.getPlayGroup({
@@ -785,7 +785,7 @@ export default {
     .user-name {
       padding-top: 5px;
       font-size: 17px;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
     }
     .user-title {
       font-size: 13px;
