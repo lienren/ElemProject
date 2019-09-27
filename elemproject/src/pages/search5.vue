@@ -1,8 +1,11 @@
 <template>
   <div class="main-page">
     <div class="page">
-      <div class="page-items" style="padding-top:10px;height:20px;" @click="attrSelectShow=false">
+      <div class="page-items" style="padding-top:10px;height:20px;margin-bottom:80px;" @click="attrSelectShow=false">
         <headMenu></headMenu>
+      </div>
+      <div class="page-items" style="margin-bottom: 20px;">
+        <img src="../assets/images/al_header.jpg" style="width:100%;height:auto;" />
       </div>
       <div class="page-items" style="margin-bottom: 20px;">
         <div

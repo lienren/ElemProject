@@ -1,46 +1,155 @@
 <template>
   <div class="main-page">
     <div class="page">
-      <div class="page-items" style="padding-top:10px;height:20px;" @click="attrSelectShow=false">
+      <div
+        class="page-items"
+        style="padding-top:10px;height:20px;margin-bottom:80px;"
+        @click="attrSelectShow=false"
+      >
         <headMenu></headMenu>
       </div>
       <div class="page-items" style="margin-bottom: 20px;">
-        <div style="font-size:12px;margin-bottom:10px;color:#666;">可筛选条件</div>
-        <div>
-          <el-row :gutter="10">
-            <div
-              v-for="(item, index) in attrList"
-              :key="index"
-              :class="['search-condition', checkAttr(item.attrName)?'active':'']"
-              @click="selectAttrIndex(item, index)"
-            >{{item.attrName}}</div>
-          </el-row>
-        </div>
-        <div
-          :class="['search-condition-list',attrSelectShow?'':'none']"
-          :style="{'left':attrSelectLeft+'px'}"
-        >
-          <el-row :gutter="10">
-            <el-col
-              v-for="(option, index) in attrOptionList"
-              :key="index"
-              :span="6"
-              style="margin-bottom: 10px;"
-            >
-              <div
-                :class="['key-word', checkAttrValue(attrSelectName, option)?'active':'']"
-                @click="selectAttr(attrSelectName, option)"
-              >{{option}}</div>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-button
-              style="float:right;"
-              type="text"
-              icon="el-icon-close"
-              @click="attrSelectShow=false"
-            ></el-button>
-          </el-row>
+        <img src="../assets/images/cd_header.jpg" style="width:100%;height:auto;" />
+      </div>
+      <div class="page-items">
+        <el-row :gutter="20">
+          <el-col :span="16">
+            <img src="../assets/images/cd_banner.jpg" style="width:100%;height:auto;" />
+          </el-col>
+          <el-col :span="8">
+            <el-card shadow="never">
+              <div slot="header" class="clearfix">
+                <div
+                  style="text-align: center;font-weight:bold;font-size:18px;font-style:italic;"
+                >免费定制专属方案</div>
+              </div>
+              <div>
+                <el-form label-position="left" size="small" label-width="60px">
+                  <el-form-item label="人数">
+                    <el-input-number v-model="orderPeopleNum" :min="1" :max="100000"></el-input-number>
+                  </el-form-item>
+                  <el-form-item label="日期">
+                    <el-date-picker
+                      v-model="selDate"
+                      type="date"
+                      placeholder="选择日期"
+                      value-format="yyyy-MM-dd"
+                      :picker-options="pickerOptions"
+                    ></el-date-picker>
+                  </el-form-item>
+                  <el-form-item>
+                    <el-button
+                      type="primary"
+                      style="width:100%;background:#f57021;border:solid 1px #f57021;"
+                      @click="submitOrder"
+                    >提交需求</el-button>
+                  </el-form-item>
+                </el-form>
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
+      </div>
+      <div class="page-items" style="margin-bottom: 20px;">
+        <div style="padding:10px 70px;">
+          <div style="font-size:12px;margin-bottom:20px;color:#666;">可筛选条件</div>
+          <div style="margin-bottom:20px;">
+            <el-row :gutter="10">
+              <el-col :span="4">
+                <el-row>
+                  <el-col :span="6">
+                    <img src="../assets/images/cd_1.jpg" style="width:30px;height:30px;" />
+                  </el-col>
+                  <el-col :span="12">
+                    <div
+                      :class="['attr-header',checkAttrValue(attrSelectName, '培训演讲')?'active':'']"
+                      @click="selectAttr(attrSelectName, '培训演讲')"
+                    >培训演讲</div>
+                  </el-col>
+                </el-row>
+              </el-col>
+              <el-col :span="4">
+                <el-row>
+                  <el-col :span="6">
+                    <img src="../assets/images/cd_2.jpg" style="width:30px;height:30px;" />
+                  </el-col>
+                  <el-col :span="12">
+                    <div
+                      :class="['attr-header',checkAttrValue(attrSelectName, '团队拓展')?'active':'']"
+                      @click="selectAttr(attrSelectName, '团队拓展')"
+                    >团队拓展</div>
+                  </el-col>
+                </el-row>
+              </el-col>
+              <el-col :span="4">
+                <el-row>
+                  <el-col :span="6">
+                    <img src="../assets/images/cd_3.jpg" style="width:30px;height:30px;" />
+                  </el-col>
+                  <el-col :span="12">
+                    <div
+                      :class="['attr-header',checkAttrValue(attrSelectName, '年会')?'active':'']"
+                      @click="selectAttr(attrSelectName, '年会')"
+                    >年会</div>
+                  </el-col>
+                </el-row>
+              </el-col>
+              <el-col :span="4">
+                <el-row>
+                  <el-col :span="6">
+                    <img src="../assets/images/cd_4.jpg" style="width:30px;height:30px;" />
+                  </el-col>
+                  <el-col :span="12">
+                    <div
+                      :class="['attr-header',checkAttrValue(attrSelectName, '轰趴')?'active':'']"
+                      @click="selectAttr(attrSelectName, '轰趴')"
+                    >轰趴</div>
+                  </el-col>
+                </el-row>
+              </el-col>
+              <el-col :span="4">
+                <el-row>
+                  <el-col :span="6">
+                    <img src="../assets/images/cd_5.jpg" style="width:30px;height:30px;" />
+                  </el-col>
+                  <el-col :span="12">
+                    <div
+                      :class="['attr-header',checkAttrValue(attrSelectName, '亲子出行')?'active':'']"
+                      @click="selectAttr(attrSelectName, '亲子出行')"
+                    >亲子出行</div>
+                  </el-col>
+                </el-row>
+              </el-col>
+              <el-col :span="4">
+                <el-row>
+                  <el-col :span="6">
+                    <img src="../assets/images/cd_6.jpg" style="width:30px;height:30px;" />
+                  </el-col>
+                  <el-col :span="12">
+                    <div
+                      :class="['attr-header',checkAttrValue(attrSelectName, '公司聚会')?'active':'']"
+                      @click="selectAttr(attrSelectName, '公司聚会')"
+                    >公司聚会</div>
+                  </el-col>
+                </el-row>
+              </el-col>
+            </el-row>
+          </div>
+          <div>
+            <el-row :gutter="10">
+              <el-col
+                v-for="(option, index) in attrOptionList"
+                :key="index"
+                :span="3"
+                style="margin-bottom: 20px;"
+              >
+                <div
+                  :class="['key-word', checkAttrValue(attrSelectName, option)?'active':'']"
+                  @click="selectAttr(attrSelectName, option)"
+                >{{option}}</div>
+              </el-col>
+            </el-row>
+          </div>
         </div>
       </div>
       <div class="page-items" @click="attrSelectShow=false">
@@ -55,14 +164,17 @@
               <div @click="toSiteDetail(item.id)">
                 <img :src="item.masterImg" style="width:100%;" />
                 <div style="padding: 14px;">
-                  <div class="title1" style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;">{{item.subTitle}}</div>
-                  <div class="title2" style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;">{{item.title}}</div>
+                  <div
+                    class="title1"
+                    style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;"
+                  >{{item.subTitle}}</div>
+                  <div
+                    class="title2"
+                    style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;"
+                  >{{item.title}}</div>
                   <div class="title3">
                     <el-row>
-                      <el-col
-                        :span="14"
-                        style="padding-top:3px;"
-                      >适合{{item.peopleNum}}人</el-col>
+                      <el-col :span="14" style="padding-top:3px;">适合{{item.peopleNum}}人</el-col>
                       <el-col
                         :span="10"
                         style="font-size:16px;color:#f57021;text-align:right;"
@@ -104,7 +216,14 @@ export default {
       attrSelectLeft: -5,
       attrSelectName: '',
       attrOptionList: [],
-      selectAttrList: []
+      selectAttrList: [],
+      pickerOptions: {
+        disabledDate (time) {
+          return time.getTime() + 24 * 3600000 <= Date.now()
+        }
+      },
+      selDate: '',
+      orderPeopleNum: 1
     }
   },
   computed: {
@@ -134,6 +253,9 @@ export default {
 
         return find
       }
+    },
+    userInfo () {
+      return this.$store.state.global.userInfo
     }
   },
   created () { },
@@ -171,6 +293,8 @@ export default {
             })
           }
         })
+
+        this.selectAttrIndex(this.attrList[3], 3)
       }
     },
     async getPlaySite () {
@@ -186,6 +310,11 @@ export default {
       }
     },
     selectAttrIndex (item, index) {
+      const notShowKeys = ',培训演讲,团队拓展,年会,轰趴,亲子出行,公司聚会,'
+      item.options = item.options.filter(f => {
+        return notShowKeys.indexOf(`,${f},`) === -1
+      })
+
       this.attrSelectShow = true
       this.attrSelectName = item.attrName
       this.attrOptionList = item.options
@@ -233,12 +362,55 @@ export default {
           }
         })
       }
+    },
+    async submitOrder () {
+      if (!this.userInfo) {
+        if (!this.$store.state.global.loginDialogIsShow) {
+          this.$store.commit('SET_LOGINDIALOGISSHOW', true)
+        }
+        return
+      }
+
+      if (this.selDate === '') {
+        this.$message.error('请选择日期！')
+        return
+      }
+
+      await api.addOrder({
+        otype: 3,
+        opeopleNum: this.orderPeopleNum,
+        oselectTime: this.selDate,
+        userId: this.userInfo.userId,
+        userPhone: this.userInfo.userPhone,
+        userName: this.userInfo.userName
+      })
+
+      this.orderPeopleNum = 1
+      this.selDate = ''
+
+      this.$message({
+        message: '您的需求已提交成功，我们的客户经理稍后会联系您！',
+        type: 'success'
+      })
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
+  .attr-header {
+    text-align: center;
+    font-size: 16px;
+    background: linear-gradient(180deg, #fff 50%, #ffdfcc 50%);
+    line-height: 30px;
+    cursor: pointer;
+
+    &.active {
+      color: #f57021;
+      font-weight: bold;
+    }
+  }
+
   .main-page {
     max-width: 1920px;
     margin: 0 auto;
