@@ -9,9 +9,11 @@ export default [
   { path: '/search3', component: view('search3') },
   { path: '/search4', component: view('search4') },
   { path: '/search5', component: view('search5') },
+  { path: '/search6', component: view('search6') },
   { path: '/detail', component: view('detail') },
   { path: '/detail2', component: view('detail2') },
   { path: '/detail3', component: view('detail3') },
   { path: '/detail4', component: view('detail4') },
-  { path: '/detail5', component: view('detail5') }
+  { path: '/detail5', component: view('detail5') },
+  { path: '/detail6', component: view('detail6') }
 ]

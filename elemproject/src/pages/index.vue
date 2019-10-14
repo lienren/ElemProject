@@ -18,9 +18,10 @@
         <headMenu></headMenu>
         <div class="page-search">
           <div class="sorts">
-            <span :class="[searchSelectIndex===0?'active':'']" @click="searchSelectIndex=0">团建</span>
+            <span :class="[searchSelectIndex===0?'active':'']" @click="searchSelectIndex=0">户外</span>
             <span :class="[searchSelectIndex===1?'active':'']" @click="searchSelectIndex=1">萌马童游</span>
             <span :class="[searchSelectIndex===2?'active':'']" @click="searchSelectIndex=2">场地</span>
+            <span :class="[searchSelectIndex===3?'active':'']" @click="searchSelectIndex=3">团建</span>
           </div>
           <el-form label-width="0">
             <el-form-item label>
@@ -60,10 +61,10 @@
                 <div style="text-align: center;font-weight:bold;font-size:18px;font-style:italic;">免费定制专属方案</div>
               </div>
               <div class="sorts" style="font-size:16px;text-align:center;">
-                <span :class="[orderSelectIndex===0?'active':'']" @click="orderSelectIndex=0">团建</span>
+                <span :class="[orderSelectIndex===0?'active':'']" @click="orderSelectIndex=0">户外</span>
                 <span :class="[orderSelectIndex===1?'active':'']" @click="orderSelectIndex=1">萌马童游</span>
                 <span :class="[orderSelectIndex===2?'active':'']" @click="orderSelectIndex=2">场地</span>
-                <span :class="[orderSelectIndex===4?'active':'']" @click="orderSelectIndex=4">活动</span>
+                <span :class="[orderSelectIndex===4?'active':'']" @click="orderSelectIndex=4">团建</span>
               </div>
               <div>
                 <el-form label-position="left" size="small" label-width="60px">
@@ -87,6 +88,63 @@
                     >提交需求</el-button>
                   </el-form-item>
                 </el-form>
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
+      </div>
+      <div class="page-items">
+        <div class="title">陶冶户外</div>
+        <div class="sorts">
+          <span v-for="(item, index) in tourYeAttrListZero" :key="index" @click="toSearch6">{{item}}</span>
+          <span class="more" @click="toSearch6">更多</span>
+        </div>
+        <el-row :gutter="20">
+          <el-col v-for="(item, index) in tourYeList" :key="index" :span="6">
+            <div
+              :style="{marginBottom:'20px',width:'100%',height:'300px',background:`url(`+JSON.parse(item.subImg)[4]+`) center center no-repeat`, backgroundSize: 'cover'}"
+              @click="toTourYeDetail(item.id)"
+            ></div>
+          </el-col>
+        </el-row>
+      </div>
+      <div class="page-items">
+        <div class="title">萌马童游</div>
+        <div class="sorts">
+          <span v-for="(item, index) in pcAttrListZero" :key="index" @click="toSearch2">{{item}}</span>
+          <span class="more" @click="toSearch2">更多</span>
+        </div>
+        <el-row :gutter="20">
+          <el-col v-for="(item, index) in pcList" :key="index" :span="12">
+            <div
+              :style="{marginBottom:'20px',width:'100%',height:'180px',background:`url(`+JSON.parse(item.subImg)[4]+`) center center no-repeat`, backgroundSize: 'cover'}"
+              @click="toPCDetail(item.id)"
+            ></div>
+          </el-col>
+        </el-row>
+      </div>
+      <div class="page-items">
+        <div class="title">找场地</div>
+        <div class="sorts">
+          <span v-for="(item, index) in siteAttrListZero" :key="index" @click="toSearch3">{{item}}</span>
+          <span class="more" @click="toSearch3">更多</span>
+        </div>
+        <el-row :gutter="20">
+          <el-col v-for="(item, index) in siteList" :key="index" :span="6">
+            <el-card :body-style="{ padding: '0px' }">
+              <div @click="toSiteDetail(item.id)">
+                <img :src="item.masterImg" style="width:100%;height:auto;" />
+                <div style="padding: 14px;">
+                  <div
+                    class="title2"
+                    style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;"
+                  >{{item.subTitle}}</div>
+                  <div
+                    class="title1"
+                    style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;"
+                  >{{item.title}}</div>
+                  <div class="title3">{{item.price/100}}元/人起</div>
+                </div>
               </div>
             </el-card>
           </el-col>
@@ -119,49 +177,7 @@
           </el-col>
         </el-row>
       </div>
-      <div class="page-items">
-        <div class="title">找场地</div>
-        <div class="sorts">
-          <span v-for="(item, index) in siteAttrListZero" :key="index" @click="toSearch3">{{item}}</span>
-          <span class="more" @click="toSearch3">更多</span>
-        </div>
-        <el-row :gutter="20">
-          <el-col v-for="(item, index) in siteList" :key="index" :span="6">
-            <el-card :body-style="{ padding: '0px' }">
-              <div @click="toSiteDetail(item.id)">
-                <img :src="item.masterImg" style="width:100%;height:auto;" />
-                <div style="padding: 14px;">
-                  <div
-                    class="title2"
-                    style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;"
-                  >{{item.subTitle}}</div>
-                  <div
-                    class="title1"
-                    style="display: -webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;"
-                  >{{item.title}}</div>
-                  <div class="title3">{{item.price/100}}元/人起</div>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
-      </div>
-      <div class="page-items">
-        <div class="title">萌马童游</div>
-        <div class="sorts">
-          <span v-for="(item, index) in pcAttrListZero" :key="index" @click="toSearch2">{{item}}</span>
-          <span class="more" @click="toSearch2">更多</span>
-        </div>
-        <el-row :gutter="20">
-          <el-col v-for="(item, index) in pcList" :key="index" :span="12">
-            <div
-              :style="{marginBottom:'20px',width:'100%',height:'180px',background:`url(`+JSON.parse(item.subImg)[4]+`) center center no-repeat`, backgroundSize: 'cover'}"
-              @click="toPCDetail(item.id)"
-            ></div>
-          </el-col>
-        </el-row>
-      </div>
-      <div class="page-items">
+      <!-- <div class="page-items">
         <div class="title">活动服务</div>
         <div class="sorts">
           <span
@@ -179,7 +195,7 @@
             ></div>
           </el-col>
         </el-row>
-      </div>
+      </div> -->
       <div class="page-items">
         <div class="title">案例</div>
         <div class="sorts">
@@ -330,7 +346,7 @@ import headMenu from '../components/HeadMenu'
 import footMenu from '../components/FootMenu'
 import api from '../api/yp'
 
-const orderType = [1, 4, 3, 5, 2]
+const orderType = [6, 4, 3, 1]
 
 export default {
   components: {
@@ -358,6 +374,9 @@ export default {
       activityList: [],
       activityAttrList: [],
       activityAttrListZero: [],
+      tourYeList: [],
+      tourYeAttrList: [],
+      tourYeAttrListZero: [],
       searchText: '',
       searchSelectIndex: 0,
       businessUserList: [],
@@ -395,6 +414,7 @@ export default {
       this.getPlaySite()
       this.getPlayCase()
       this.getPlayActivity()
+      this.getPlayTourYe()
       this.getBusinessUser()
     },
     toDetail (url) {
@@ -415,6 +435,9 @@ export default {
     toSearch5 () {
       this.$router.push({ path: `/search5` })
     },
+    toSearch6 () {
+      this.$router.push({ path: `/search6` })
+    },
     toGroupDetail (id) {
       this.$router.push({ path: `/detail?id=${id}` })
     },
@@ -430,22 +453,22 @@ export default {
     toActivityDetail (id) {
       this.$router.push({ path: `/detail5?id=${id}` })
     },
+    toTourYeDetail (id) {
+      this.$router.push({ path: `/detail6?id=${id}` })
+    },
     toSearchText () {
       switch (this.searchSelectIndex) {
         case 0:
-          this.toSearch()
+          this.toSearch6()
           break
         case 1:
-          this.toSearch2()
+          this.toSearch4()
           break
         case 2:
           this.toSearch3()
           break
         case 3:
-          this.toSearch4()
-          break
-        case 4:
-          this.toSearch5()
+          this.toSearch()
           break
       }
     },
@@ -644,6 +667,37 @@ export default {
 
       if (result) {
         this.businessUserList = result.data && result.data.list ? result.data.list : []
+      }
+    },
+    async getPlayTourYe () {
+      const attrs = await this.getAttr(6)
+
+      attrs.forEach(item => {
+        this.tourYeAttrList.push({
+          id: item.id,
+          attrName: item.attrName,
+          isCheck: item.isCheck,
+          options: item.attrValues ? item.attrValues.map(m => {
+            return m.attrValue
+          }) : [],
+          selectItems: item.isCheck === 1 ? [] : '',
+          defaultItems: item.isCheck === 1 ? [] : ''
+        })
+      })
+
+      if (this.tourYeAttrList.length > 0) {
+        this.tourYeAttrListZero = []
+        this.tourYeAttrListZero = this.tourYeAttrListZero.concat(this.tourYeAttrList[0].options)
+      }
+
+      const result = await api.getPlayTourYe({
+        current: 1,
+        pageSize: 4,
+        total: 0
+      })
+
+      if (result) {
+        this.tourYeList = result.data.list || []
       }
     },
     async submitOrder () {

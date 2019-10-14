@@ -14,9 +14,9 @@
                 style="font-size:15px;"
                 class="link"
                 :underline="false"
-                href="/search"
+                href="/search6"
                 target="_self"
-              >去团建</el-link>
+              >陶冶户外</el-link>
               <el-link
                 style="font-size:15px;"
                 class="link"
@@ -35,16 +35,16 @@
                 style="font-size:15px;"
                 class="link"
                 :underline="false"
-                href="/search4"
+                href="/search"
                 target="_self"
-              >案例</el-link>
+              >去团建</el-link>
               <el-link
                 style="font-size:15px;"
                 class="link"
                 :underline="false"
-                href="/search5"
+                href="/search4"
                 target="_self"
-              >活动</el-link>
+              >案例</el-link>
             </div>
           </el-col>
         </el-row>

@@ -2,7 +2,7 @@
  * @Author: Lienren
  * @Date: 2019-08-10 14:11:58
  * @Last Modified by: Lienren
- * @Last Modified time: 2019-09-17 09:37:51
+ * @Last Modified time: 2019-10-14 12:03:05
  */
 import Vue from 'vue'
 
@@ -57,5 +57,11 @@ export default {
   },
   userLogin (body, op = {}) {
     return Vue.$api.xHttp.post(`https://manage.youngplay.net/youngplay/userLogin`, body, op)
+  },
+  getPlayTourYe (body, op = {}) {
+    return Vue.$api.xHttp.post(`https://manage.youngplay.net/youngplay/getPlayTourYe`, body, op)
+  },
+  getPlayTourYeDetail (body, op = {}) {
+    return Vue.$api.xHttp.post(`https://manage.youngplay.net/youngplay/getPlayTourYeDetail`, body, op)
   }
 }
